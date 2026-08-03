@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { LanguageProvider } from './locales';
+import { ThemeProvider } from './contexts/theme_context';
 
 // @ts-ignore
 import Header from './components/header/header.tsx';
 // @ts-ignore
 import Hero from './components/hero/hero.tsx';
-// @ts-ignore
-import ProjectSlider from './components/project_slider/project_slider.tsx';
 // @ts-ignore
 import About from './components/about/about.tsx';
 // @ts-ignore
@@ -26,7 +25,7 @@ import Footer from './components/footer/footer.tsx';
 // @ts-ignore
 import ChatBubble from './components/chat_bubble/chat_bubble.tsx';
 // @ts-ignore
-import ProjectDetail from './components/project_detail/project_detail.tsx';
+import ThemeSlider from './components/theme_slider/theme_slider.tsx';
 
 const AppContainer = styled.div`
   background: linear-gradient(135deg, #1e1e1e 0%, #2a1a3d 50%, #1e1e1e 100%);
@@ -36,33 +35,26 @@ const AppContainer = styled.div`
   margin: 0;
 `;
 
-const MainPage: React.FC = () => (
-  <>
-    <Header />
-    <Hero />
-    <ProjectSlider />
-    <About />
-    <Speaking />
-    <Resume />
-    <Projects />
-    <ContributionMap />
-    <SocialLinks />
-    <Footer />
-    <ChatBubble />
-  </>
-);
-
 const App: React.FC = () => {
   return (
     <LanguageProvider>
-      <Router>
-        <AppContainer>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/project/:id" element={<ProjectDetail />} />
-          </Routes>
-        </AppContainer>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <AppContainer>
+            <Header />
+            <Hero />
+            <About />
+            <Speaking />
+            <Resume />
+            <Projects />
+            <ContributionMap />
+            <SocialLinks />
+            <Footer />
+            <ChatBubble />
+            <ThemeSlider />
+          </AppContainer>
+        </Router>
+      </ThemeProvider>
     </LanguageProvider>
   );
 }
