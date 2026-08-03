@@ -1,0 +1,47 @@
+.project-detail {
+  min-height: 100vh;
+  padding: 120px 40px 40px;
+  color: #fff;
+  font-family: 'RobotoMono', monospace;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a1a3d 50%, #1e1e1e 100%);
+  background-size: 200% 200%;
+
+  &__back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #d4a1ff;
+    text-decoration: none;
+    font-size: 1em;
+
+    &:hover {
+      color: #f0abfc;
+      text-decoration: underline;
+    }
+  }
+
+  &__title {
+    font-size: 2em;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  &__label {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 24px;
+  }
+
+  &__raw {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__not-found {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
