@@ -1,7 +1,11 @@
 import React from 'react';
-import { ResumeSection } from './resumetypes';
+import { ResumeSectionContent } from '../../locales/types';
 
-const VisualAid: React.FC<{ section: ResumeSection }> = ({ section }) => {
+interface VisualAidProps {
+  section: ResumeSectionContent;
+}
+
+const VisualAid: React.FC<VisualAidProps> = ({ section }) => {
   return (
     <div className="section-container">
       <h1 className="section-title">{section.title}</h1>
