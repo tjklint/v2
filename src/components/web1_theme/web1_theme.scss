@@ -1,0 +1,452 @@
+// Web 1.0 / GeoCities / Heaven's Gate inspired theme
+.web1-theme {
+  min-height: 100vh;
+  background: #0a0014;
+  color: #d4a1ff;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+.web1-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+    radial-gradient(2px 2px at 40px 70px, #d4a1ff, transparent),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+    radial-gradient(2px 2px at 160px 120px, #a855f7, transparent),
+    radial-gradient(1px 1px at 230px 80px, #ffffff, transparent),
+    radial-gradient(2px 2px at 300px 150px, #d4a1ff, transparent),
+    radial-gradient(1px 1px at 350px 60px, #ffffff, transparent),
+    radial-gradient(2px 2px at 420px 180px, #a855f7, transparent),
+    radial-gradient(1px 1px at 500px 90px, #ffffff, transparent),
+    radial-gradient(2px 2px at 600px 200px, #d4a1ff, transparent),
+    radial-gradient(1px 1px at 700px 50px, #ffffff, transparent),
+    radial-gradient(2px 2px at 750px 140px, #a855f7, transparent),
+    radial-gradient(1px 1px at 800px 220px, #ffffff, transparent),
+    radial-gradient(2px 2px at 900px 100px, #d4a1ff, transparent);
+  background-repeat: repeat;
+  background-size: 1000px 300px;
+  opacity: 0.6;
+  animation: web1-stars 120s linear infinite;
+}
+
+@keyframes web1-stars {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 300px; }
+}
+
+.web1-outer {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.web1-construction-banner {
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 3px dashed #febc2e;
+  background: #1a0b2e;
+  color: #febc2e;
+  font-weight: bold;
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.web1-construction-emoji {
+  font-size: 1.4em;
+}
+
+.web1-blink {
+  animation: web1-blink 1s step-end infinite;
+}
+
+@keyframes web1-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.web1-marquee {
+  display: block;
+  overflow: hidden;
+  background: #1a0b2e;
+  color: #f0abfc;
+  border: 2px solid #a855f7;
+  padding: 8px 0;
+  font-size: 1em;
+  margin-bottom: 24px;
+  white-space: nowrap;
+}
+
+.web1-marquee-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: web1-marquee 20s linear infinite;
+}
+
+@keyframes web1-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.web1-header {
+  text-align: center;
+  border: 4px double #a855f7;
+  padding: 24px;
+  margin-bottom: 24px;
+  background: rgba(26, 11, 46, 0.8);
+}
+
+.web1-title {
+  font-size: 3.5em;
+  margin: 0;
+  color: #f0abfc;
+  text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+  letter-spacing: 0.05em;
+}
+
+.web1-tagline {
+  font-size: 1.1em;
+  color: #d4a1ff;
+  margin: 12px 0 0;
+  font-style: italic;
+}
+
+.web1-headline {
+  font-size: 1.3em;
+  color: #ffffff;
+  margin: 12px 0 0;
+}
+
+.web1-badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.web1-badge {
+  background: #2a1a3d;
+  border: 2px outset #a855f7;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  color: #f0abfc;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.web1-counter-box {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: #000000;
+  border: 2px inset #a855f7;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.web1-counter-label {
+  font-size: 0.7em;
+  color: #a855f7;
+  margin-bottom: 4px;
+}
+
+.web1-counter {
+  font-size: 1.4em;
+  color: #00ff9d;
+  letter-spacing: 0.15em;
+}
+
+.web1-nav {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 10px;
+  background: #1a0b2e;
+  border: 2px solid #a855f7;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95em;
+
+  a {
+    color: #f0abfc;
+    text-decoration: underline;
+    text-decoration-color: #a855f7;
+    padding: 0 4px;
+
+    &:hover {
+      color: #ffffff;
+      background: #a855f7;
+    }
+  }
+}
+
+.web1-nav-sep {
+  color: #a855f7;
+  padding: 0 6px;
+}
+
+.web1-section {
+  border: 3px ridge #a855f7;
+  background: rgba(26, 11, 46, 0.9);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.web1-section-title {
+  color: #f0abfc;
+  font-size: 1.8em;
+  margin: 0 0 16px;
+  border-bottom: 2px solid #a855f7;
+  padding-bottom: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.web1-subtitle {
+  color: #d4a1ff;
+  font-size: 1.3em;
+  margin: 24px 0 12px;
+  text-decoration: underline;
+  text-decoration-color: #a855f7;
+}
+
+.web1-paragraph {
+  font-size: 1.05em;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: #e6d5ff;
+}
+
+.web1-rich-text {
+  a {
+    color: #f0abfc;
+    text-decoration: underline;
+
+    &:hover {
+      color: #ffffff;
+      background: #a855f7;
+    }
+  }
+
+  span {
+    color: #f0abfc;
+  }
+}
+
+.web1-awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.web1-award {
+  background: #2a1a3d;
+  border: 2px solid #febc2e;
+  color: #febc2e;
+  padding: 4px 8px;
+  font-size: 0.85em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.web1-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 0.95em;
+  border: 2px solid #a855f7;
+
+  th,
+  td {
+    border: 1px solid #a855f7;
+    padding: 8px 10px;
+    text-align: left;
+  }
+
+  th {
+    background: #2a1a3d;
+    color: #f0abfc;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  td {
+    color: #e6d5ff;
+  }
+
+  tr:nth-child(even) {
+    background: rgba(138, 43, 226, 0.1);
+  }
+
+  a {
+    color: #f0abfc;
+    text-decoration: underline;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.web1-list {
+  list-style-type: square;
+  padding-left: 24px;
+  color: #e6d5ff;
+
+  li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  a {
+    color: #f0abfc;
+
+    &:hover {
+      color: #ffffff;
+      background: #a855f7;
+    }
+  }
+}
+
+.web1-sublist {
+  list-style-type: circle;
+  padding-left: 20px;
+  margin-top: 8px;
+  color: #d4a1ff;
+
+  li {
+    margin-bottom: 6px;
+  }
+}
+
+.web1-connect-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  li::before {
+    content: '🔗 ';
+  }
+}
+
+.web1-resume-section {
+  margin-bottom: 20px;
+}
+
+.web1-resume-entry {
+  margin-bottom: 16px;
+}
+
+.web1-company {
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.web1-dates {
+  color: #d4a1ff;
+  font-size: 0.9em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.web1-guestbook {
+  border: 2px dashed #a855f7;
+  padding: 16px;
+  background: #1a0b2e;
+}
+
+.web1-guestbook-entry {
+  border-bottom: 1px solid #a855f7;
+  padding: 12px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  p {
+    margin: 8px 0 0;
+    color: #e6d5ff;
+  }
+}
+
+.web1-guestbook-name {
+  color: #f0abfc;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.web1-guestbook-date {
+  color: #a855f7;
+  font-size: 0.85em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.web1-footer {
+  text-align: center;
+  border-top: 4px double #a855f7;
+  padding-top: 24px;
+  margin-top: 32px;
+  color: #a855f7;
+  font-size: 0.9em;
+}
+
+.web1-webring {
+  margin-bottom: 16px;
+  font-family: 'Courier New', Courier, monospace;
+
+  a {
+    color: #f0abfc;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.web1-copyright {
+  color: #d4a1ff;
+  margin: 8px 0;
+}
+
+.web1-last-updated {
+  color: #a855f7;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85em;
+}
+
+.web1-disclaimer {
+  color: #d4a1ff;
+  font-size: 0.85em;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .web1-title {
+    font-size: 2.2em;
+  }
+
+  .web1-table {
+    font-size: 0.85em;
+
+    th,
+    td {
+      padding: 6px;
+    }
+  }
+
+  .web1-outer {
+    padding: 12px;
+  }
+}
