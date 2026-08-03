@@ -92,6 +92,17 @@ export interface ProjectContent {
   };
 }
 
+export interface ProjectSliderContent {
+  title: string;
+  viewProject: string;
+}
+
+export interface ProjectDetailContent {
+  back: string;
+  rawLabel: string;
+  notFound: string;
+}
+
 export interface ProjectsContent {
   title: string;
   searchPlaceholder: string;
@@ -189,6 +200,8 @@ export interface SiteContent {
   about: AboutContent;
   speaking: SpeakingContent;
   projects: ProjectsContent;
+  projectSlider: ProjectSliderContent;
+  projectDetail: ProjectDetailContent;
   resume: ResumeContent;
   socials: SocialsContent;
   footer: FooterContent;

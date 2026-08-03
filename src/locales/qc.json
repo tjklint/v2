@@ -344,6 +344,15 @@
       }
     ]
   },
+  "projectSlider": {
+    "title": "Projets en vedette",
+    "viewProject": "Voir le projet"
+  },
+  "projectDetail": {
+    "back": "Retour",
+    "rawLabel": "Données brutes du projet",
+    "notFound": "Projet introuvable."
+  },
   "resume": {
     "title": "CV",
     "iframeTitle": "CV de TJ Klint",
