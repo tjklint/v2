@@ -1,16 +1,16 @@
 import React from "react";
 import GitHubCalendar from "react-github-calendar";
+import { useContent } from "../../locales";
 import "./contribution_map.scss";
 
 const ContributionMap: React.FC = () => {
+  const content = useContent();
+
   const labels = {
-    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    totalCount: '{{count}} contributions', 
-    legend: {
-      less: 'Less',
-      more: 'More',
-    },
+    months: content.contributionMap.months,
+    weekdays: content.contributionMap.weekdays,
+    totalCount: content.contributionMap.totalCount,
+    legend: content.contributionMap.legend,
   };
 
   const theme = {
@@ -18,11 +18,13 @@ const ContributionMap: React.FC = () => {
     dark: ["#ffffff", "#c299ff", "#9f66ff", "#7a33cc", "#592699"],
   };
 
+  const [currentYear, ...previousYears] = content.contributionMap.years;
+
   return (
     <div className="contribution-map-container">
       <section className="contribution-map">
         <div className="calendar-section">
-          <h3 className="year-label">/2026</h3>
+          <h3 className="year-label">/{currentYear}</h3>
           <div className="calendar-wrapper">
             <GitHubCalendar
               username="tjklint"
@@ -30,39 +32,27 @@ const ContributionMap: React.FC = () => {
               fontSize={16}
               theme={theme}
               labels={labels}
-              year={2026}
+              year={currentYear}
             />
           </div>
         </div>
 
         <div className="calendar-row">
-          <div className="calendar-section">
-            <h3 className="year-label">/2025</h3>
-            <div className="calendar-wrapper">
-              <GitHubCalendar
-                username="tjklint"
-                blockSize={11}
-                fontSize={14}
-                theme={theme}
-                labels={labels}
-                year={2025}
-              />
+          {previousYears.map((year) => (
+            <div className="calendar-section" key={year}>
+              <h3 className="year-label">/{year}</h3>
+              <div className="calendar-wrapper">
+                <GitHubCalendar
+                  username="tjklint"
+                  blockSize={11}
+                  fontSize={14}
+                  theme={theme}
+                  labels={labels}
+                  year={year}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="calendar-section">
-            <h3 className="year-label">/2024</h3>
-            <div className="calendar-wrapper">
-              <GitHubCalendar
-                username="tjklint"
-                blockSize={11}
-                fontSize={14}
-                theme={theme}
-                labels={labels}
-                year={2024}
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>
