@@ -1,25 +1,25 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import spaceship from '../../assets/spaceship/webp/spaceship.webp'; // Importing spaceship image
-import talksData from '../../data/talks.json';
+import spaceship from '../../assets/spaceship/webp/spaceship.webp';
+import { useContent } from '../../locales';
+import { TalkContent } from '../../locales/types';
 import { gradientShift } from '../../styles/animations';
 
-// Main container for the hero section
 const HeroContainer = styled.section`
   display: flex;
-  flex-direction: column; /* Stack items vertically by default */
-  min-height: 100vh; /* Full viewport height */
-  padding-top: 100px; /* Account for floating header with margin */
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 100px;
   background: linear-gradient(135deg, #1e1e1e 0%, #2a1a3d 50%, #1e1e1e 100%);
   background-size: 200% 200%;
   animation: ${gradientShift} 15s ease infinite;
-  color: #fff; /* White text */
-  overflow: hidden; /* Prevent overflow */
-  font-family: 'RobotoMono', sans-serif; /* Use RobotoMono font */
+  color: #fff;
+  overflow: hidden;
+  font-family: 'RobotoMono', sans-serif;
   position: relative;
 
   @media (max-width: 768px) {
-    padding-top: 90px; /* Account for floating header on mobile */
+    padding-top: 90px;
   }
 
   &::before {
@@ -35,34 +35,32 @@ const HeroContainer = styled.section`
   }
 
   @media (min-width: 768px) {
-    flex-direction: row; /* On larger screens, layout side by side */
+    flex-direction: row;
   }
 `;
 
-// Left container for text and main title
 const LeftContainer = styled.div`
-  flex: 1; /* Take up equal space */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center text vertically */
-  padding: 40px; /* Padding around the text */
-  text-align: left; /* Left-align the text */
-  margin-top: -10%; /* Adjust to move text slightly up */
+  justify-content: center;
+  padding: 40px;
+  text-align: left;
+  margin-top: -10%;
   position: relative;
   z-index: 1;
 
   @media (max-width: 768px) {
-    padding: 24px; /* Reduced padding for smaller screens */
-    margin-top: 0; /* Remove negative margin for mobile */
+    padding: 24px;
+    margin-top: 0;
   }
 
   @media (min-width: 768px) {
-    flex: 0 0 35%; /* Take up 35% of the space on larger screens */
-    padding: 60px 40px; /* More padding on larger screens */
+    flex: 0 0 35%;
+    padding: 60px 40px;
   }
 `;
 
-// Styling for the headline
 const Headline = styled.h1`
   font-size: 1.25em;
   font-weight: 400;
@@ -77,22 +75,20 @@ const Headline = styled.h1`
   }
 `;
 
-// Right container for the spaceship and animations
 const RightContainer = styled.div`
-  flex: 1; /* Take up equal space */
-  position: relative; /* Needed for absolute positioning of circles */
+  flex: 1;
+  position: relative;
   display: flex;
-  justify-content: center; /* Center the spaceship horizontally */
-  align-items: center; /* Center the spaceship vertically */
-  overflow: hidden; /* Prevent overflow of elements */
-  min-height: 50vh; /* Minimum height for smaller screens */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  min-height: 50vh;
 
   @media (min-width: 768px) {
-    flex: 0 0 65%; /* Take up 65% of the space on larger screens */
+    flex: 0 0 65%;
   }
 `;
 
-// Floating animation for the spaceship (smooth up and down motion)
 const floatAnimation = keyframes`
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -105,20 +101,18 @@ const floatAnimation = keyframes`
   }
 `;
 
-// Styling for the spaceship image with floating animation
 const Spaceship = styled.img`
-  width: 80%; /* Set spaceship width to 80% of the container */
-  z-index: 1; /* Ensure it stays above any background elements */
-  animation: ${floatAnimation} 4s ease-in-out infinite; /* Apply floating animation */
+  width: 80%;
+  z-index: 1;
+  animation: ${floatAnimation} 4s ease-in-out infinite;
   filter: drop-shadow(0 20px 40px rgba(138, 43, 226, 0.3));
   transition: transform 0.3s ease;
 
   @media (min-width: 768px) {
-    width: 50%; /* Make it smaller on larger screens */
+    width: 50%;
   }
 `;
 
-// Animation for shrinking and moving circles
 const shrinkAndMove = (left: number, top: number, containerWidth: number, containerHeight: number) => keyframes`
   0% {
     transform: translate(0, 0) scale(1);
@@ -130,7 +124,6 @@ const shrinkAndMove = (left: number, top: number, containerWidth: number, contai
   }
 `;
 
-// Circle styling with animation based on position and size
 const Circle = styled.div<{ left: number; top: number; size: number; containerWidth: number; containerHeight: number }>`
   position: absolute;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(212, 161, 255, 0.6) 100%);
@@ -147,7 +140,6 @@ const Circle = styled.div<{ left: number; top: number; size: number; containerWi
   `}
 `;
 
-// Styling for the gradient text (title)
 const GradientText = styled.h2`
   background: linear-gradient(135deg, #a855f7 0%, #d4a1ff 50%, #f0abfc 100%);
   background-size: 200% 200%;
@@ -167,7 +159,6 @@ const GradientText = styled.h2`
   }
 `;
 
-// Blinking cursor animation
 const blink = keyframes`
   0%, 50% {
     opacity: 1;
@@ -177,7 +168,6 @@ const blink = keyframes`
   }
 `;
 
-// Styling for the typewriter effect text
 const TypewriterText = styled.div`
   color: #d4a1ff;
   font-size: clamp(1.1em, 3vw, 1.75em);
@@ -186,7 +176,7 @@ const TypewriterText = styled.div`
   overflow: hidden;
   font-weight: 500;
   letter-spacing: 0.02em;
-  
+
   &::after {
     content: '_';
     animation: ${blink} 1s infinite;
@@ -195,7 +185,6 @@ const TypewriterText = styled.div`
   }
 `;
 
-// Styling for the talk button/link
 const TalkLink = styled.a`
   display: inline-block;
   margin-top: 1.5em;
@@ -239,7 +228,6 @@ const TalkLink = styled.a`
   }
 `;
 
-// Styling for the talk description text
 const TalkDescription = styled.a`
   display: block;
   margin-top: 0.75em;
@@ -257,68 +245,32 @@ const TalkDescription = styled.a`
   }
 `;
 
-// Interface for circle properties
 interface CircleProps {
-  id: number; /* Unique ID for each circle */
-  left: number; /* Horizontal position */
-  top: number; /* Vertical position */
-  size: number; /* Circle size */
-  containerWidth: number; /* Width of the container */
-  containerHeight: number; /* Height of the container */
+  id: number;
+  left: number;
+  top: number;
+  size: number;
+  containerWidth: number;
+  containerHeight: number;
 }
 
-// Interface for talk data
-interface Talk {
-  event: string;
-  date: string;
-  website: string;
-}
-
-// Constants for hero component
-const topLines = [
-  "You're finally awake. Let's explore my work.",
-  "In a galaxy far, far away, I created this portfolio.",
-  "Winter is coming, but you're safe here. Explore my work.",
-  "Welcome to my corner of the web!",
-  "Greetings! I'm thrilled to have you here.",
-  "Hi! Thanks for dropping by.",
-  "It's dangerous to go alone! Take this portfolio.",
-  "Say hello to my little projects!",
-  "Welcome to the dark side of my portfolio.",
-  "One portfolio to rule them all.",
-]; // Array of possible headline texts
-
-const typewriterTexts = [
-  "Software Engineer @ Planned",
-  "Ex-Software Developer @ Botpress",
-  "Ex-SDE Intern @ Bell",
-  "Co-Chair @ CUSEC 2025",
-  "Ex-SDE Intern @ CSE",
-  "Ethical Hacker",
-  "AI Enthusiast",
-  "Founder @ JACHacks",
-  "Coffee Drinker",
-  "Hackathon Fanatic",
-  "Director of Events @ CUSEC 2024",
-  "USE BOTPRESS.COM"
-]; // Array of texts for the typewriter effect
-
-// Main Hero component
 const Hero: React.FC = () => {
-  const [circles, setCircles] = useState<CircleProps[]>([]); // State to manage circles
-  const [topLine, setTopLine] = useState(''); // State for random headline
-  const [currentText, setCurrentText] = useState(''); // State for typewriter text
-  const rightContainerRef = useRef<HTMLDivElement>(null); // Ref to get the right container's dimensions
+  const content = useContent();
+  const [circles, setCircles] = useState<CircleProps[]>([]);
+  const [topLine, setTopLine] = useState('');
+  const [currentText, setCurrentText] = useState('');
+  const rightContainerRef = useRef<HTMLDivElement>(null);
 
-  // Determine if there's a future talk and get the relevant talk
-  const getTalkInfo = (): { isFuture: boolean; talk: Talk | null } => {
-    const talks = (talksData as { talks: Talk[] }).talks;
+  const topLines = content.hero.topLines;
+  const typewriterTexts = content.hero.typewriter;
+
+  const getTalkInfo = (): { isFuture: boolean; talk: TalkContent | null } => {
+    const talks = content.speaking.talks;
     if (talks.length === 0) return { isFuture: false, talk: null };
 
     const now = new Date();
-    now.setHours(0, 0, 0, 0); // Reset time to compare dates only
+    now.setHours(0, 0, 0, 0);
 
-    // Find future talks
     const futureTalks = talks.filter(talk => {
       const talkDate = new Date(talk.date);
       talkDate.setHours(0, 0, 0, 0);
@@ -326,110 +278,100 @@ const Hero: React.FC = () => {
     });
 
     if (futureTalks.length > 0) {
-      // Sort by date and get the earliest future talk
       futureTalks.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       return { isFuture: true, talk: futureTalks[0] };
     }
 
-    // If no future talks, return null (will show "Yours?")
     return { isFuture: false, talk: null };
   };
 
   const { isFuture, talk } = getTalkInfo();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    // Pick a random top line for the header when the component mounts
     setTopLine(topLines[Math.floor(Math.random() * topLines.length)]);
-  }, []);
+  }, [topLines]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    // Typewriter effect
     const typeWriter = () => {
       let i = 0;
       let textPos = 0;
       let currentString = typewriterTexts[i];
-      const speed = 100; // Typing speed
-      const deleteSpeed = 50; // Deleting speed
-      const waitTime = 2000; // Time before deleting starts
+      const speed = 100;
+      const deleteSpeed = 50;
+      const waitTime = 2000;
 
-      // Function to handle typing the text
       function type() {
         setCurrentText(currentString.substring(0, textPos));
 
         if (textPos++ === currentString.length) {
-          setTimeout(() => deleteText(), waitTime); // Wait and start deleting
+          setTimeout(() => deleteText(), waitTime);
         } else {
-          setTimeout(type, speed); // Continue typing
+          setTimeout(type, speed);
         }
       }
 
-      // Function to handle deleting the text
       function deleteText() {
         setCurrentText(currentString.substring(0, textPos));
 
         if (textPos-- === 0) {
-          i = (i + 1) % typewriterTexts.length; // Cycle through text array
-          currentString = typewriterTexts[i]; // Get next string
-          setTimeout(type, speed); // Start typing again
+          i = (i + 1) % typewriterTexts.length;
+          currentString = typewriterTexts[i];
+          setTimeout(type, speed);
         } else {
-          setTimeout(deleteText, deleteSpeed); // Continue deleting
+          setTimeout(deleteText, deleteSpeed);
         }
       }
 
-      type(); // Start the typewriter effect
+      type();
     };
 
-    typeWriter(); // Invoke the typewriter function on component mount
-  }, []);
+    typeWriter();
+  }, [typewriterTexts]);
 
   useEffect(() => {
-    // Create new circles every 333 milliseconds for the spaceship animation
     const interval = setInterval(() => {
       if (rightContainerRef.current) {
-        const containerWidth = rightContainerRef.current.clientWidth; // Get container width
-        const containerHeight = rightContainerRef.current.clientHeight; // Get container height
+        const containerWidth = rightContainerRef.current.clientWidth;
+        const containerHeight = rightContainerRef.current.clientHeight;
 
         const newCircles: CircleProps[] = Array.from({ length: 7 }).map(() => {
-          const isVerticalEdge = Math.random() > 0.5; // Randomly decide if circle spawns at vertical edge
-          const left = isVerticalEdge 
-            ? (Math.random() > 0.5 ? 0 : containerWidth - 10)  // Either the left or right edge
-            : Math.random() * containerWidth; // Random horizontal position
+          const isVerticalEdge = Math.random() > 0.5;
+          const left = isVerticalEdge
+            ? (Math.random() > 0.5 ? 0 : containerWidth - 10)
+            : Math.random() * containerWidth;
 
-          const top = !isVerticalEdge 
-            ? (Math.random() > 0.5 ? 0 : containerHeight - 10)  // Either the top or bottom edge
-            : Math.random() * containerHeight; // Random vertical position
+          const top = !isVerticalEdge
+            ? (Math.random() > 0.5 ? 0 : containerHeight - 10)
+            : Math.random() * containerHeight;
 
           return {
-            id: Date.now() + Math.random(), // Generate unique ID
+            id: Date.now() + Math.random(),
             left,
             top,
-            size: Math.random() * 20 + 10, // Random size for the circle
+            size: Math.random() * 20 + 10,
             containerWidth,
             containerHeight,
           };
         });
 
-        setCircles(prevCircles => [...prevCircles, ...newCircles]); // Add new circles to state
+        setCircles(prevCircles => [...prevCircles, ...newCircles]);
 
-        // Remove the new circles after 2 seconds
         setTimeout(() => {
           setCircles(prevCircles =>
             prevCircles.filter(circle => !newCircles.some(newCircle => newCircle.id === circle.id))
           );
         }, 2000);
       }
-    }, 333); // Create circles every 333ms
+    }, 333);
 
-    return () => clearInterval(interval); // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <HeroContainer>
       <LeftContainer>
         <Headline>{topLine}</Headline>
-        <GradientText>I'm TJ Klint.</GradientText>
+        <GradientText>{content.meta.headline}</GradientText>
         <TypewriterText>{currentText}</TypewriterText>
         {isFuture && talk ? (
           <TalkLink
@@ -437,25 +379,25 @@ const Hero: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Next talk: <span className="event-name">{talk.event}</span>
+            {content.hero.nextTalkLabel} <span className="event-name">{talk.event}</span>
           </TalkLink>
         ) : (
           <TalkLink
-            href="mailto:timothyjklint@gmail.com?subject=Speaking Opportunity"
+            href={`mailto:${content.meta.email}?subject=${encodeURIComponent(content.hero.talkSubject)}`}
           >
-            Next talk: <span className="event-name">Your event?</span>
+            {content.hero.nextTalkLabel} <span className="event-name">{content.hero.yourEvent}</span>
           </TalkLink>
         )}
         <TalkDescription
-          href="/data/slides/mythsandinsights.pdf"
+          href={content.hero.slidesPath}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Check out: The Myths & Insights of your (early) tech career
+          {content.hero.checkOut}
         </TalkDescription>
       </LeftContainer>
       <RightContainer ref={rightContainerRef}>
-        <Spaceship src={spaceship} alt="Spaceship" />
+        <Spaceship src={spaceship} alt={content.hero.spaceshipAlt} />
         {circles.map(circle => (
           <Circle
             key={circle.id}
