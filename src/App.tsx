@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { HashRouter as Router } from 'react-router-dom';
 import { LanguageProvider } from './locales';
-import { ThemeProvider } from './contexts/theme_context';
+import { ThemeProvider, useTheme } from './contexts/theme_context';
 
 // @ts-ignore
 import Header from './components/header/header.tsx';
@@ -26,6 +26,8 @@ import Footer from './components/footer/footer.tsx';
 import ChatBubble from './components/chat_bubble/chat_bubble.tsx';
 // @ts-ignore
 import ThemeSlider from './components/theme_slider/theme_slider.tsx';
+// @ts-ignore
+import RawHelloWorld from './components/raw_hello_world/raw_hello_world.tsx';
 
 const AppContainer = styled.div`
   background: linear-gradient(135deg, #1e1e1e 0%, #2a1a3d 50%, #1e1e1e 100%);
@@ -35,24 +37,38 @@ const AppContainer = styled.div`
   margin: 0;
 `;
 
+const AppContent: React.FC = () => {
+  const { theme } = useTheme();
+
+  return (
+    <>
+      {theme === 'ex2' ? (
+        <AppContainer>
+          <Header />
+          <Hero />
+          <About />
+          <Speaking />
+          <Resume />
+          <Projects />
+          <ContributionMap />
+          <SocialLinks />
+          <Footer />
+          <ChatBubble />
+        </AppContainer>
+      ) : (
+        <RawHelloWorld />
+      )}
+      <ThemeSlider />
+    </>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <LanguageProvider>
       <ThemeProvider>
         <Router>
-          <AppContainer>
-            <Header />
-            <Hero />
-            <About />
-            <Speaking />
-            <Resume />
-            <Projects />
-            <ContributionMap />
-            <SocialLinks />
-            <Footer />
-            <ChatBubble />
-            <ThemeSlider />
-          </AppContainer>
+          <AppContent />
         </Router>
       </ThemeProvider>
     </LanguageProvider>
