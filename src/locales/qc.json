@@ -344,14 +344,11 @@
       }
     ]
   },
-  "projectSlider": {
-    "title": "Projets en vedette",
-    "viewProject": "Voir le projet"
-  },
-  "projectDetail": {
-    "back": "Retour",
-    "rawLabel": "Données brutes du projet",
-    "notFound": "Projet introuvable."
+  "themeSlider": {
+    "title": "UI",
+    "ex1": "ex1",
+    "ex2": "ex2",
+    "ex3": "ex3"
   },
   "resume": {
     "title": "CV",
