@@ -122,6 +122,7 @@ export interface ResumeEntryContent {
 }
 
 export interface ResumeSectionContent {
+  key: string;
   title: string;
   entries: ResumeEntryContent[];
 }
