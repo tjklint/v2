@@ -25,7 +25,7 @@ const Web1Theme: React.FC = () => {
     <div className="web1-theme">
       <div className="web1-stars" aria-hidden="true" />
 
-      <div className="web1-outer">
+        <div className="web1-outer" id="top">
         <div className="web1-construction-banner">
           <span className="web1-construction-emoji">🚧</span>
           <span className="web1-blink">UNDER CONSTRUCTION</span>
@@ -224,9 +224,9 @@ const Web1Theme: React.FC = () => {
 
         <footer className="web1-footer">
           <div className="web1-webring">
-            <a href="#">&lt; Previous Cool Site</a>
+            <a href="#top">&lt; Previous Cool Site</a>
             <span> | AI Homestead Webring | </span>
-            <a href="#">Next Cool Site &gt;</a>
+            <a href="#top">Next Cool Site &gt;</a>
           </div>
 
           <p className="web1-copyright">
