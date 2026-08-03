@@ -101,7 +101,9 @@ export interface ProjectsContent {
   noResults: string;
   seeOnGithub: string;
   tryItOut: string;
+  visitWebsite: string;
   usesLabel: string;
+  comingSoonAlert: string;
   comingSoon: {
     title: string;
     description: string;

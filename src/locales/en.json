@@ -169,7 +169,9 @@
     "noResults": "No projects found matching your search criteria.",
     "seeOnGithub": "See on GitHub",
     "tryItOut": "Try it Out",
+    "visitWebsite": "Visit Website",
     "usesLabel": "Uses:",
+    "comingSoonAlert": "Coming soon!",
     "comingSoon": {
       "title": "More Projects Coming Soon...",
       "description": "Stay tuned for more exciting projects!",
