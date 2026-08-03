@@ -37,6 +37,8 @@ jobs:
 
       - name: Build
         run: pnpm run build
+        env:
+          PUBLIC_URL: /v2
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
