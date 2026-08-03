@@ -27,6 +27,8 @@ import ChatBubble from './components/chat_bubble/chat_bubble.tsx';
 // @ts-ignore
 import ThemeSlider from './components/theme_slider/theme_slider.tsx';
 // @ts-ignore
+import Web1Theme from './components/web1_theme/web1_theme.tsx';
+// @ts-ignore
 import RawHelloWorld from './components/raw_hello_world/raw_hello_world.tsx';
 
 const AppContainer = styled.div`
@@ -55,6 +57,8 @@ const AppContent: React.FC = () => {
           <Footer />
           <ChatBubble />
         </AppContainer>
+      ) : theme === 'ex1' ? (
+        <Web1Theme />
       ) : (
         <RawHelloWorld />
       )}
