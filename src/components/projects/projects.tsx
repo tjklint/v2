@@ -2,29 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { FaGithub, FaGlobe, FaSearch } from 'react-icons/fa';
 import { useContent } from '../../locales';
 import { ProjectContent } from '../../locales/types';
+import { projectAssetMap, defaultProjectImage } from '../../utils/project_assets';
 import './projects.scss';
-
-import investSmartGif from '../../assets/projects/InvestSmart.gif';
-import pokePCGif from '../../assets/projects/PokePC.gif';
-import privacyXPressoGif from '../../assets/projects/PrivacyXPresso.gif';
-import portfolioGif from '../../assets/projects/Portfolio.gif';
-import digitalAdrenalineGif from '../../assets/projects/DigitalAdrenaline.gif';
-import ecovestGif from '../../assets/projects/Ecovest.gif';
-import habitGif from '../../assets/projects/habit.gif';
-import mySecretaryGif from '../../assets/projects/MySecretary.gif';
-import pathfinderGif from '../../assets/projects/Pathfinder.gif';
-
-const assetMap: { [key: string]: string } = {
-  'InvestSmart.gif': investSmartGif,
-  'PokePC.gif': pokePCGif,
-  'PrivacyXPresso.gif': privacyXPressoGif,
-  'Portfolio.gif': portfolioGif,
-  'DigitalAdrenaline.gif': digitalAdrenalineGif,
-  'Ecovest.gif': ecovestGif,
-  'habit.gif': habitGif,
-  'MySecretary.gif': mySecretaryGif,
-  'Pathfinder.gif': pathfinderGif,
-};
 
 const handleComingSoonClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>, alertText: string) => {
   event.preventDefault();
@@ -98,7 +77,7 @@ const Projects: React.FC = () => {
   };
 
   const renderProject = (project: ProjectContent, isSmall: boolean = false) => {
-    const imageSrc = assetMap[project.image] || portfolioGif;
+    const imageSrc = projectAssetMap[project.image] || defaultProjectImage;
     const containerClass = isSmall ? 'small-project' : 'project-container';
     const altText = content.projects.altTemplate.replace('{title}', project.title);
 

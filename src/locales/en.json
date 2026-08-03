@@ -344,6 +344,15 @@
       }
     ]
   },
+  "projectSlider": {
+    "title": "Featured Projects",
+    "viewProject": "View Project"
+  },
+  "projectDetail": {
+    "back": "Back",
+    "rawLabel": "Raw project data",
+    "notFound": "Project not found."
+  },
   "resume": {
     "title": "Resume",
     "iframeTitle": "TJ Klint Resume",
