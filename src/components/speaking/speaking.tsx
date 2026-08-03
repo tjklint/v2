@@ -6,20 +6,11 @@ import {
   FaMicrophone,
   FaYoutube,
 } from 'react-icons/fa';
-import talksData from '../../data/talks.json';
+import { useContent } from '../../locales';
+import { RichText } from '../rich_text/rich_text';
 import './speaking.scss';
 
-interface Talk {
-  title?: string;
-  kind?: string;
-  event: string;
-  date: string;
-  website: string;
-  slides?: string;
-  repo?: string;
-  video?: string;
-  location?: string;
-}
+import { TalkContent } from '../../locales/types';
 
 const parseDate = (iso: string) => {
   const d = new Date(iso);
@@ -35,13 +26,15 @@ const formatDate = (iso: string) =>
   });
 
 const Speaking: React.FC = () => {
+  const content = useContent();
+
   const { upcoming, past } = useMemo(() => {
-    const talks = (talksData as { talks: Talk[] }).talks;
+    const talks = content.speaking.talks;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const future: Talk[] = [];
-    const history: Talk[] = [];
+    const future: TalkContent[] = [];
+    const history: TalkContent[] = [];
     talks.forEach((t) => {
       if (parseDate(t.date) >= today) future.push(t);
       else history.push(t);
@@ -49,9 +42,9 @@ const Speaking: React.FC = () => {
     future.sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
     history.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
     return { upcoming: future, past: history };
-  }, []);
+  }, [content.speaking.talks]);
 
-  const renderCard = (talk: Talk, kind: 'upcoming' | 'past') => (
+  const renderCard = (talk: TalkContent, kind: 'upcoming' | 'past') => (
     <article className={`speaking-card speaking-card--${kind}`} key={`${talk.event}-${talk.date}`}>
       <div className="speaking-card__head">
         <FaMicrophone className="speaking-card__icon" aria-hidden="true" />
@@ -68,7 +61,7 @@ const Speaking: React.FC = () => {
           rel="noopener noreferrer"
           className="speaking-card__link"
         >
-          <FaExternalLinkAlt /> Event
+          <FaExternalLinkAlt /> {content.speaking.linkLabels.event}
         </a>
         {talk.slides && (
           <a
@@ -77,7 +70,7 @@ const Speaking: React.FC = () => {
             rel="noopener noreferrer"
             className="speaking-card__link"
           >
-            <FaFilePdf /> Slides
+            <FaFilePdf /> {content.speaking.linkLabels.slides}
           </a>
         )}
         {talk.repo && (
@@ -87,7 +80,7 @@ const Speaking: React.FC = () => {
             rel="noopener noreferrer"
             className="speaking-card__link"
           >
-            <FaGithub /> Repo
+            <FaGithub /> {content.speaking.linkLabels.repo}
           </a>
         )}
         {talk.video && (
@@ -97,7 +90,7 @@ const Speaking: React.FC = () => {
             rel="noopener noreferrer"
             className="speaking-card__link speaking-card__link--video"
           >
-            <FaYoutube /> Watch
+            <FaYoutube /> {content.speaking.linkLabels.watch}
           </a>
         )}
       </div>
@@ -108,31 +101,20 @@ const Speaking: React.FC = () => {
     <section className="speaking-container" id="speaking">
       <div className="speaking-content-left">
         <div className="speaking-intro__text">
-          <h2 className="speaking-title">Speaking</h2>
-          <p>
-            I love sharing what I learn. I talk about{' '}
-            <span className="purple-text">AI and AI agents</span>,{' '}
-            <span className="purple-text">ethical hacking</span>,{' '}
-            <span className="purple-text">rate limiting and backend patterns</span>,
-            and the messy bits of starting a career in tech: honest
-            stories, no sales pitches, and takeaways people can actually use
-            on Monday.
-          </p>
-          <p>
-            Anything from a 20-minute lightning talk to a half-day workshop
-            works for me. Conferences, meetups, company events, panels. I&rsquo;ll tailor the format and tone to your crowd.
-          </p>
+          <h2 className="speaking-title">{content.speaking.title}</h2>
+          {content.speaking.intro.map((paragraph, index) => (
+            <p key={index}>
+              <RichText segments={paragraph} />
+            </p>
+          ))}
           <p className="speaking-intro__cta">
-            Want me on your lineup?{' '}
-            <a href="mailto:timothyjklint@gmail.com?subject=Speaking Opportunity">
-              Let&rsquo;s talk.
-            </a>
+            <RichText segments={content.speaking.cta} />
           </p>
         </div>
 
         {upcoming.length > 0 && (
           <div className="speaking-group">
-            <h3 className="speaking-group__label">Upcoming</h3>
+            <h3 className="speaking-group__label">{content.speaking.groupLabels.upcoming}</h3>
             <div className="speaking-grid">
               {upcoming.map((t) => renderCard(t, 'upcoming'))}
             </div>
@@ -141,7 +123,7 @@ const Speaking: React.FC = () => {
 
         {past.length > 0 && (
           <div className="speaking-group">
-            <h3 className="speaking-group__label">Past</h3>
+            <h3 className="speaking-group__label">{content.speaking.groupLabels.past}</h3>
             <div className="speaking-grid">
               {past.map((t) => renderCard(t, 'past'))}
             </div>
@@ -150,17 +132,14 @@ const Speaking: React.FC = () => {
 
         {upcoming.length === 0 && past.length === 0 && (
           <p className="speaking-empty">
-            No talks scheduled yet.{' '}
-            <a href="mailto:timothyjklint@gmail.com?subject=Speaking Opportunity">
-              Invite me to yours.
-            </a>
+            <RichText segments={content.speaking.empty} />
           </p>
         )}
       </div>
       <div className="speaking-content-right">
         <div className="speaking-video-container">
           <iframe
-            src="https://www.youtube.com/embed/ohf7ljqecVc"
+            src={content.speaking.videoUrl}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
