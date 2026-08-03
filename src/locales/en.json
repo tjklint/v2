@@ -350,6 +350,7 @@
     "iframeUrl": "https://drive.google.com/file/d/1lu80YAIwnfPQ4X3biBm__4uldH7Pw7cV/preview",
     "sections": [
       {
+        "key": "education",
         "title": "Education",
         "entries": [
           {
@@ -360,6 +361,7 @@
         ]
       },
       {
+        "key": "experience",
         "title": "Experience",
         "entries": [
           {
