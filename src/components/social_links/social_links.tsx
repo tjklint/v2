@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaLinkedin, FaGlobe, FaMedium, FaDev } from 'react-icons/fa';
+import { useContent } from '../../locales';
+import { RichText } from '../rich_text/rich_text';
 import { gradientShift } from '../../styles/animations';
 
-// Container for the entire social section
 const SocialContainer = styled.div`
   width: 30%;
   margin: 30px auto;
@@ -35,7 +36,6 @@ const SocialContainer = styled.div`
   }
 `;
 
-// Styled title for the social section
 const SocialTitle = styled.h3`
   color: #fff;
   font-size: clamp(1.3em, 2.5vw, 1.8em);
@@ -53,7 +53,6 @@ const SocialTitle = styled.h3`
   z-index: 1;
 `;
 
-// Styled description text
 const SocialDescription = styled.p`
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 24px;
@@ -61,17 +60,8 @@ const SocialDescription = styled.p`
   line-height: 1.6;
   position: relative;
   z-index: 1;
-
-  .highlight {
-    background: linear-gradient(135deg, #a855f7 0%, #d4a1ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 600;
-  }
 `;
 
-// Container for the social icons
 const SocialIcons = styled.div`
   display: flex;
   justify-content: center;
@@ -92,21 +82,38 @@ const SocialIcons = styled.div`
   }
 `;
 
-// Main React component
+const iconMap: Record<string, React.ComponentType> = {
+  FaGithub,
+  FaLinkedin,
+  FaGlobe,
+  FaMedium,
+  FaDev,
+};
+
 const SocialLinks: React.FC = () => {
+  const content = useContent();
+
   return (
     <SocialContainer>
-      <SocialTitle>FIND ME ON</SocialTitle>
+      <SocialTitle>{content.socials.title}</SocialTitle>
       <SocialDescription>
-        Feel free to <span className="highlight">connect</span> with me
+        <RichText segments={content.socials.description} />
       </SocialDescription>
       <SocialIcons>
-        {/* Social media links with icons */}
-        <a href="https://github.com/tjklint" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-        <a href="https://www.linkedin.com/in/timothy-klint" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-        <a href="https://tjklint.com" target="_blank" rel="noopener noreferrer"><FaGlobe /></a>
-        <a href="https://medium.com/@tjklint" target="_blank" rel="noopener noreferrer"><FaMedium /></a>
-        <a href="https://dev.to/tjklint" target="_blank" rel="noopener noreferrer"><FaDev /></a>
+        {content.socials.links.map((link) => {
+          const Icon = iconMap[link.icon];
+          return (
+            <a
+              key={link.name}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+            >
+              {Icon ? <Icon /> : null}
+            </a>
+          );
+        })}
       </SocialIcons>
     </SocialContainer>
   );
