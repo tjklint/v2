@@ -1,0 +1,474 @@
+{
+  "meta": {
+    "name": "TJ Klint",
+    "legalName": "Timothy Klint",
+    "logo": "TJ KLINT",
+    "email": "timothyjklint@gmail.com",
+    "headline": "I'm TJ Klint."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "speaking": "Speaking",
+    "resume": "Resume",
+    "projects": "Projects",
+    "repoAria": "View source"
+  },
+  "hero": {
+    "topLines": [
+      "You're finally awake. Let's explore my work.",
+      "In a galaxy far, far away, I created this portfolio.",
+      "Winter is coming, but you're safe here. Explore my work.",
+      "Welcome to my corner of the web!",
+      "Greetings! I'm thrilled to have you here.",
+      "Hi! Thanks for dropping by.",
+      "It's dangerous to go alone! Take this portfolio.",
+      "Say hello to my little projects!",
+      "Welcome to the dark side of my portfolio.",
+      "One portfolio to rule them all."
+    ],
+    "typewriter": [
+      "Software Engineer @ Planned",
+      "Ex-Software Developer @ Botpress",
+      "Ex-SDE Intern @ Bell",
+      "Co-Chair @ CUSEC 2025",
+      "Ex-SDE Intern @ CSE",
+      "Ethical Hacker",
+      "AI Enthusiast",
+      "Founder @ JACHacks",
+      "Coffee Drinker",
+      "Hackathon Fanatic",
+      "Director of Events @ CUSEC 2024",
+      "USE BOTPRESS.COM"
+    ],
+    "nextTalkLabel": "Next talk:",
+    "yourEvent": "Your event?",
+    "talkSubject": "Speaking Opportunity",
+    "checkOut": "Check out: The Myths & Insights of your (early) tech career",
+    "slidesPath": "/data/slides/mythsandinsights.pdf",
+    "spaceshipAlt": "Spaceship"
+  },
+  "about": {
+    "title": "About Me",
+    "paragraphs": [
+      [
+        { "type": "text", "text": "Hello! My name is " },
+        { "type": "highlight", "text": "TJ Klint" },
+        { "type": "text", "text": ", well, technically it's " },
+        { "type": "italic", "text": "Timothy" },
+        { "type": "text", "text": " (our little secret). I'm a passionate developer currently working as a " },
+        { "type": "highlight", "text": "Software Engineer at " },
+        { "type": "link", "text": "Planned", "href": "https://planned.com", "external": true },
+        { "type": "text", "text": ", and previously worked at " },
+        { "type": "link", "text": "Botpress", "href": "https://botpress.com", "external": true },
+        { "type": "text", "text": " and completed internships at " },
+        { "type": "link", "text": "CSE", "href": "https://www.cse-cst.gc.ca/", "external": true },
+        { "type": "text", "text": " and " },
+        { "type": "link", "text": "Bell", "href": "https://www.bell.ca/", "external": true },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "I thrive in fast-paced environments where I can quickly adapt and deliver quality solutions. Beyond work, I'm passionate about hackathons and tech conferences, this led me to serve as " },
+        { "type": "link", "text": "Co-Chair for CUSEC 2025", "href": "https://2025.cusec.net", "external": true },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "I love sharing knowledge with the tech community through speaking engagements. " },
+        { "type": "link", "text": "Check out my talks and speaking experience", "href": "#speaking", "external": false },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "Outside of tech, you'll typically find me playing hockey, golfing, listening/discovering some live music, using the oxford comma, and travelling!" }
+      ],
+      [
+        { "type": "text", "text": "You can also catch my blogs over on " },
+        { "type": "link", "text": "Medium", "href": "https://medium.com/@tjklint", "external": true },
+        { "type": "text", "text": " or " },
+        { "type": "link", "text": "Dev.to", "href": "https://dev.to/tjklint", "external": true },
+        { "type": "text", "text": ", and if you want to keep up to date with my work you should definitely connect with me over on " },
+        { "type": "link", "text": "LinkedIn", "href": "https://linkedin.com/in/timothy-klint", "external": true },
+        { "type": "text", "text": " and " },
+        { "type": "link", "text": "GitHub", "href": "https://github.com/tjklint", "external": true },
+        { "type": "text", "text": "." }
+      ]
+    ],
+    "photoAlt": "TJ Klint"
+  },
+  "speaking": {
+    "title": "Speaking",
+    "intro": [
+      [
+        { "type": "text", "text": "I love sharing what I learn. I talk about " },
+        { "type": "highlight", "text": "AI and AI agents" },
+        { "type": "text", "text": ", " },
+        { "type": "highlight", "text": "ethical hacking" },
+        { "type": "text", "text": ", " },
+        { "type": "highlight", "text": "rate limiting and backend patterns" },
+        { "type": "text", "text": ", and the messy bits of starting a career in tech: honest stories, no sales pitches, and takeaways people can actually use on Monday." }
+      ],
+      [
+        { "type": "text", "text": "Anything from a 20-minute lightning talk to a half-day workshop works for me. Conferences, meetups, company events, panels. I'll tailor the format and tone to your crowd." }
+      ]
+    ],
+    "cta": [
+      { "type": "text", "text": "Want me on your lineup? " },
+      { "type": "link", "text": "Let's talk.", "href": "mailto:timothyjklint@gmail.com?subject=Speaking Opportunity", "external": false }
+    ],
+    "ctaSubject": "Speaking Opportunity",
+    "groupLabels": {
+      "upcoming": "Upcoming",
+      "past": "Past"
+    },
+    "linkLabels": {
+      "event": "Event",
+      "slides": "Slides",
+      "repo": "Repo",
+      "watch": "Watch"
+    },
+    "empty": [
+      { "type": "text", "text": "No talks scheduled yet. " },
+      { "type": "link", "text": "Invite me to yours.", "href": "mailto:timothyjklint@gmail.com?subject=Speaking Opportunity", "external": false }
+    ],
+    "videoUrl": "https://www.youtube.com/embed/ohf7ljqecVc",
+    "talks": [
+      {
+        "id": "myths-insights",
+        "title": "The Myths & Insights of your (early) tech career",
+        "event": "CUSEC 2026",
+        "date": "2026-01-10",
+        "website": "https://2026.cusec.net",
+        "slides": "/data/slides/mythsandinsights.pdf",
+        "video": "https://www.youtube.com/watch?v=zaQiIxiJw-g&t=346s"
+      },
+      {
+        "id": "changelogger",
+        "title": "Changelogger: Building Enterprise-Grade AI Agents",
+        "kind": "Workshop",
+        "event": "CUCAI 2026",
+        "date": "2026-03-07",
+        "website": "https://cucai.ca",
+        "repo": "https://github.com/tjklint/cucai2026"
+      },
+      {
+        "id": "rate-limiting",
+        "title": "Rate Limiting: The Art of Saying No",
+        "event": "MTL_Code",
+        "date": "2026-04-16",
+        "website": "https://botpress.com/events",
+        "slides": "/data/slides/ratelimiting.pdf",
+        "video": "https://www.youtube.com/watch?v=ohf7ljqecVc"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "searchPlaceholder": "Search projects, technologies, or tags...",
+    "showAllLabel": "Show All Projects",
+    "showFeaturedLabel": "Show Featured",
+    "allTags": "All Tags",
+    "noResults": "No projects found matching your search criteria.",
+    "seeOnGithub": "See on GitHub",
+    "tryItOut": "Try it Out",
+    "usesLabel": "Uses:",
+    "comingSoon": {
+      "title": "More Projects Coming Soon...",
+      "description": "Stay tuned for more exciting projects!",
+      "github": "https://github.com/tjklint",
+      "website": "https://tjklint.com"
+    },
+    "altTemplate": "{title} Project",
+    "items": [
+      {
+        "id": "pathfinder",
+        "title": "Pathfinder",
+        "description": "An AI-driven 3D platform for career exploration that uses NPCs to share real-world advice, giving users interactive recommendations and insights mapped in real time.",
+        "image": "Pathfinder.gif",
+        "featured": true,
+        "category": "big",
+        "technologies": {
+          "languages": ["TypeScript", "SASS", "HTML"],
+          "frameworks": ["React"],
+          "libraries": ["Three.js", "React Three Fiber", "Styled Components", "React Router", "OpenAI API"]
+        },
+        "tags": ["Web App", "AI", "3D Visualization", "Career Exploration"],
+        "links": {
+          "github": "https://github.com/tjklint/Pathfinder",
+          "demo": "https://www.pathfinderhelpsyoudecidewhereyouwantto.work/"
+        }
+      },
+      {
+        "id": "capital-coach",
+        "title": "Capital Coach",
+        "description": "A financial management tool designed to empower individuals with smart financial planning, integrating simplicity with effectiveness.",
+        "image": "InvestSmart.gif",
+        "featured": false,
+        "category": "big",
+        "technologies": {
+          "languages": ["JavaScript", "HTML", "CSS"],
+          "frameworks": ["React", "Node.js", "Express"],
+          "libraries": ["Chart.js", "Axios", "Botpress"]
+        },
+        "tags": ["Web App", "Finance", "Data Visualization"],
+        "links": {
+          "github": "https://github.com/tjklint/CapitalCoach",
+          "demo": "https://tjklint.github.io/CapitalCoach/"
+        }
+      },
+      {
+        "id": "ecovest",
+        "title": "Ecovest",
+        "description": "A machine learning model designed to help people make sustainable investments by factoring in Environmental, Social, and Governance (ESG) criteria.",
+        "image": "Ecovest.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript", "Python"],
+          "frameworks": ["Svelte"],
+          "libraries": ["scikit-learn", "Chart.js", "Gumloop AI Flow"]
+        },
+        "tags": ["Svelte", "Web App", "Machine Learning", "ESG", "Data Visualization"],
+        "links": {
+          "github": "https://github.com/tjklint/Ecovest",
+          "demo": null
+        }
+      },
+      {
+        "id": "digital-adrenaline",
+        "title": "DigitalAdrenaline",
+        "description": "A fast-paced 2D Cyberpunk platformer where players navigate through an AI-controlled city. Features unique bullet recovery mechanics and strategic resource management across 2-4 intricately designed levels.",
+        "image": "DigitalAdrenaline.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["GDScript", "Python"],
+          "frameworks": ["Godot"],
+          "libraries": []
+        },
+        "tags": ["Gaming", "2D Platformer", "Cyberpunk"],
+        "links": {
+          "github": "https://github.com/tjklint/DigitalAdrenaline",
+          "demo": null
+        }
+      },
+      {
+        "id": "pokepc",
+        "title": "PokePC",
+        "description": "PokePC is a Pokedex & a user-friendly web app for managing and organizing Pokemon collections, creating battle teams, and tracking Pokemon details, designed for enthusiasts at all levels.",
+        "image": "PokePC.gif",
+        "featured": true,
+        "category": "big",
+        "technologies": {
+          "languages": ["JavaScript", "HTML", "CSS"],
+          "frameworks": ["React", "Node.js"],
+          "libraries": ["Axios", "React Router"]
+        },
+        "tags": ["Web App", "Gaming"],
+        "links": {
+          "github": "https://github.com/tjklint/PokePC",
+          "demo": null
+        }
+      },
+      {
+        "id": "privacy-xpresso",
+        "title": "PrivacyXPresso",
+        "description": "PrivacyXPresso simplifies data deletion from big companies, enhancing online security with easy-to-use local tools.",
+        "image": "PrivacyXPresso.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["Python", "JavaScript"],
+          "frameworks": ["Electron", "Flask"],
+          "libraries": ["Requests"]
+        },
+        "tags": ["Desktop App", "Privacy", "Automation", "Security"],
+        "links": {
+          "github": "https://github.com/tjklint/BellGeekfest2023",
+          "demo": "tjklint.github.io/BellGeekfest2023/"
+        }
+      },
+      {
+        "id": "portfolio",
+        "title": "Portfolio",
+        "description": "Built in React, this portfolio website is built to last and showcase my best work and skills. Thanks for checking it out!",
+        "image": "Portfolio.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript", "SASS", "HTML"],
+          "frameworks": ["React"],
+          "libraries": ["Styled Components", "React Router"]
+        },
+        "tags": ["Web App", "Portfolio"],
+        "links": {
+          "github": "https://github.com/tjklint/tjklint.github.io",
+          "demo": "https://tjklint.github.io"
+        }
+      },
+      {
+        "id": "habit",
+        "title": "HabIT",
+        "description": "A habit tracker Android app built with modern Kotlin and Jetpack Compose, featuring AI-powered insights through Gemini SDK integration.",
+        "image": "habit.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["Kotlin"],
+          "frameworks": ["Jetpack Compose", "Android"],
+          "libraries": ["Gemini SDK"]
+        },
+        "tags": ["Mobile App", "AI", "Productivity"],
+        "links": {
+          "github": "https://github.com/tjklint/habit",
+          "demo": null
+        }
+      },
+      {
+        "id": "my-secretary",
+        "title": "My Secretary",
+        "description": "A mobile productivity assistant app that helps users manage tasks, plan activities, and organize their daily routines with an AI-powered interface.",
+        "image": "MySecretary.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Expo", "Node.js"],
+          "libraries": ["Axios"]
+        },
+        "tags": ["Mobile App", "Productivity", "AI"],
+        "links": {
+          "github": "https://github.com/tjklint/MySecretary",
+          "demo": null
+        }
+      }
+    ]
+  },
+  "resume": {
+    "title": "Resume",
+    "iframeTitle": "TJ Klint Resume",
+    "iframeUrl": "https://drive.google.com/file/d/1lu80YAIwnfPQ4X3biBm__4uldH7Pw7cV/preview",
+    "sections": [
+      {
+        "title": "Education",
+        "entries": [
+          {
+            "title": "Computer Science",
+            "company": "@John Abbott College",
+            "dates": "August 2022 - May 2025"
+          }
+        ]
+      },
+      {
+        "title": "Experience",
+        "entries": [
+          {
+            "title": "Software Engineer",
+            "company": "@Planned",
+            "dates": "May 2026 - Present",
+            "bulletPoints": []
+          },
+          {
+            "title": "Full-Stack Developer",
+            "company": "@Botpress",
+            "dates": "August 2025 - May 2026",
+            "bulletPoints": [
+              "Implemented automated quota recharging system, generating $150K ARR within the first 100 days.",
+              "Led rapid development of a new Customer Experience platform in 2 months, architecting infrastructure, microservices, and full-stack systems while averaging 14 PRs/day within a 12-person team.",
+              "Built a new multi-provider rate limiter used across all systems under pressure to thwart a DDoS attack."
+            ]
+          },
+          {
+            "title": "Software Developer Intern",
+            "company": "@Bell",
+            "dates": "May 2025 - September 2025",
+            "bulletPoints": [
+              "Built a Retrieval-Augmented Generation (RAG) system with Elasticsearch, improving decision speed by 65%.",
+              "Developed and secured 18+ API endpoints, with full audit logging and blocked malicious attempts.",
+              "Led, designed, and scaled database infrastructure, boosting query performance by 4×."
+            ]
+          },
+          {
+            "title": "Software Developer Intern (DevSecOps + Machine Learning)",
+            "company": "@CSE (Communications Security Establishment)",
+            "dates": "January 2025 - May 2025",
+            "bulletPoints": [
+              "Built a Jenkins pipeline to automate Docker builds and deploys to Azure/Artifactory, cutting deploy time by 80%.",
+              "Integrated unit testing into CI/CD and increased test coverage by 40% as the first to implement it."
+            ]
+          },
+          {
+            "title": "Co-Chair",
+            "company": "@CUSEC (Canadian University Software Engineering Conference)",
+            "dates": "April 2023 - February 2025",
+            "bulletPoints": [
+              "Oversaw operations for a 15+ team of student organizers including scheduling, sponsorships, and logistics, to ensure a high-quality conference for 350+ attendees from 17+ schools across 6+ provinces.",
+              "Guiding organizers, resolving logistic conflicts, and coordinating details with speakers, sponsors, and hotel venue.",
+              "Handled recruiting through social media and interviewed more than 90+ applicants."
+            ]
+          },
+          {
+            "title": "Software Developer Intern",
+            "company": "@Bell",
+            "dates": "May 2024 - September 2024",
+            "bulletPoints": [
+              "Developed a web app to streamline internal ticket creation using the Jira API.",
+              "Utilized the MEVN stack (MongoDB, Express, Vue.js, Node.js), SpringBoot with Java and RabbitMQ."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "socials": {
+    "title": "FIND ME ON",
+    "description": [
+      { "type": "text", "text": "Feel free to " },
+      { "type": "highlight", "text": "connect" },
+      { "type": "text", "text": " with me" }
+    ],
+    "links": [
+      { "name": "GitHub", "url": "https://github.com/tjklint", "icon": "FaGithub" },
+      { "name": "LinkedIn", "url": "https://www.linkedin.com/in/timothy-klint", "icon": "FaLinkedin" },
+      { "name": "Website", "url": "https://tjklint.com", "icon": "FaGlobe" },
+      { "name": "Medium", "url": "https://medium.com/@tjklint", "icon": "FaMedium" },
+      { "name": "Dev.to", "url": "https://dev.to/tjklint", "icon": "FaDev" }
+    ]
+  },
+  "footer": {
+    "credit": [
+      { "type": "text", "text": "Developed & Designed with ❤️ by " },
+      { "type": "link", "text": "Me", "href": "https://linkedin.com/in/timothy-klint", "external": true },
+      { "type": "text", "text": "." }
+    ],
+    "copyright": "© Timothy Klint 2024"
+  },
+  "chatBubble": {
+    "title": "ask xero",
+    "ariaLabel": "Open chat",
+    "prompt": "❯",
+    "cursor": "▋",
+    "statuses": {
+      "ready": "ready",
+      "running": "running",
+      "done": "done",
+      "connected": "connected"
+    },
+    "commands": [
+      { "code": "whoami", "output": "→ tj klint", "duration": 600 },
+      { "code": "tj.role", "output": "→ full-stack @ botpress", "duration": 700 },
+      { "code": "tj.stack", "output": "→ ts, py, go, c#", "duration": 500 },
+      { "code": "tj.cusec", "output": "→ co-chair 2025", "duration": 600 },
+      { "code": "ask('projects')", "output": "→ 9 shipped", "duration": 500 },
+      { "code": "openChat()", "output": "→ click me :)", "duration": 400 }
+    ]
+  },
+  "contributionMap": {
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "totalCount": "{{count}} contributions",
+    "legend": {
+      "less": "Less",
+      "more": "More"
+    },
+    "years": [2026, 2025, 2024]
+  }
+}

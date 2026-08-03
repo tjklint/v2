@@ -1,0 +1,474 @@
+{
+  "meta": {
+    "name": "TJ Klint",
+    "legalName": "Timothy Klint",
+    "logo": "TJ KLINT",
+    "email": "timothyjklint@gmail.com",
+    "headline": "Je suis TJ Klint."
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "speaking": "Conférences",
+    "resume": "CV",
+    "projects": "Projets",
+    "repoAria": "Voir le code source"
+  },
+  "hero": {
+    "topLines": [
+      "Tu te réveilles enfin. Allons voir mon travail.",
+      "Dans une galaxie lointaine, très lointaine, j'ai créé ce portfolio.",
+      "L'hiver arrive, mais t'es en sécurité ici. Explore mon travail.",
+      "Bienvenue dans mon coin du web!",
+      "Salut! Ça me fait plaisir de t'accueillir.",
+      "Hey! Merci de passer.",
+      "C'est dangereux d'aller seul! Prends ce portfolio.",
+      "Dis bonjour à mes petits projets!",
+      "Bienvenue du côté obscur de mon portfolio.",
+      "Un portfolio pour les gouverner tous."
+    ],
+    "typewriter": [
+      "Développeur logiciel @ Planned",
+      "Ex-développeur @ Botpress",
+      "Ex-stagiaire en génie logiciel @ Bell",
+      "Co-président @ CUSEC 2025",
+      "Ex-stagiaire en génie logiciel @ CSE",
+      "Hacker éthique",
+      "Passionné d'IA",
+      "Fondateur @ JACHacks",
+      "Buveur de café",
+      "Fanatique de hackathons",
+      "Directeur des événements @ CUSEC 2024",
+      "UTILISE BOTPRESS.COM"
+    ],
+    "nextTalkLabel": "Prochaine conférence :",
+    "yourEvent": "Ton événement?",
+    "talkSubject": "Invitation à conférencier",
+    "checkOut": "À voir : Mythes et révélations sur le début de carrière en tech",
+    "slidesPath": "/data/slides/mythsandinsights.pdf",
+    "spaceshipAlt": "Vaisseau spatial"
+  },
+  "about": {
+    "title": "À propos",
+    "paragraphs": [
+      [
+        { "type": "text", "text": "Salut! Je m'appelle " },
+        { "type": "highlight", "text": "TJ Klint" },
+        { "type": "text", "text": ", en fait c'est techniquement " },
+        { "type": "italic", "text": "Timothy" },
+        { "type": "text", "text": " (notre petit secret). Je suis un développeur passionné qui travaille présentement comme " },
+        { "type": "highlight", "text": "Software Engineer chez " },
+        { "type": "link", "text": "Planned", "href": "https://planned.com", "external": true },
+        { "type": "text", "text": ", j'ai travaillé avant chez " },
+        { "type": "link", "text": "Botpress", "href": "https://botpress.com", "external": true },
+        { "type": "text", "text": " et complété des stages chez " },
+        { "type": "link", "text": "CSE", "href": "https://www.cse-cst.gc.ca/", "external": true },
+        { "type": "text", "text": " et " },
+        { "type": "link", "text": "Bell", "href": "https://www.bell.ca/", "external": true },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "J'évolue bien dans des environnements rapides où je peux m'adapter et livrer des solutions de qualité. En dehors du travail, je suis passionné par les hackathons et les conférences tech, ce qui m'a mené à être " },
+        { "type": "link", "text": "co-président de CUSEC 2025", "href": "https://2025.cusec.net", "external": true },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "J'adore partager mes connaissances avec la communauté tech en donnant des conférences. " },
+        { "type": "link", "text": "Découvre mes talks et mon expérience de conférencier", "href": "#speaking", "external": false },
+        { "type": "text", "text": "." }
+      ],
+      [
+        { "type": "text", "text": "En dehors de la tech, tu me trouveras probablement en train de jouer au hockey, au golf, d'écouter ou de découvrir de la musique live, d'utiliser la virgule d'Oxford et de voyager!" }
+      ],
+      [
+        { "type": "text", "text": "Tu peux aussi lire mes articles sur " },
+        { "type": "link", "text": "Medium", "href": "https://medium.com/@tjklint", "external": true },
+        { "type": "text", "text": " ou " },
+        { "type": "link", "text": "Dev.to", "href": "https://dev.to/tjklint", "external": true },
+        { "type": "text", "text": ", et si tu veux rester au courant de mon travail tu devrais définitivement te connecter avec moi sur " },
+        { "type": "link", "text": "LinkedIn", "href": "https://linkedin.com/in/timothy-klint", "external": true },
+        { "type": "text", "text": " et " },
+        { "type": "link", "text": "GitHub", "href": "https://github.com/tjklint", "external": true },
+        { "type": "text", "text": "." }
+      ]
+    ],
+    "photoAlt": "TJ Klint"
+  },
+  "speaking": {
+    "title": "Conférences",
+    "intro": [
+      [
+        { "type": "text", "text": "J'adore partager ce que j'apprends. Je parle d'" },
+        { "type": "highlight", "text": "IA et d'agents IA" },
+        { "type": "text", "text": ", de " },
+        { "type": "highlight", "text": "hacking éthique" },
+        { "type": "text", "text": ", de " },
+        { "type": "highlight", "text": "rate limiting et de patterns backend" },
+        { "type": "text", "text": ", et des moments moins glam du début de carrière en tech : histoires honnêtes, pas de vente, et des apprentissages utilisables dès lundi." }
+      ],
+      [
+        { "type": "text", "text": "Ça peut être un lightning talk de 20 minutes ou un atelier d'une demi-journée. Conférences, meetups, événements d'entreprise, panels. J'adapte le format et le ton à ton public." }
+      ]
+    ],
+    "cta": [
+      { "type": "text", "text": "Tu veux m'inviter à parler? " },
+      { "type": "link", "text": "Parlons-en.", "href": "mailto:timothyjklint@gmail.com?subject=Speaking Opportunity", "external": false }
+    ],
+    "ctaSubject": "Invitation à conférencier",
+    "groupLabels": {
+      "upcoming": "À venir",
+      "past": "Passées"
+    },
+    "linkLabels": {
+      "event": "Événement",
+      "slides": "Slides",
+      "repo": "Repo",
+      "watch": "Regarder"
+    },
+    "empty": [
+      { "type": "text", "text": "Aucune conférence prévue pour l'instant. " },
+      { "type": "link", "text": "Invite-moi à la tienne.", "href": "mailto:timothyjklint@gmail.com?subject=Speaking Opportunity", "external": false }
+    ],
+    "videoUrl": "https://www.youtube.com/embed/ohf7ljqecVc",
+    "talks": [
+      {
+        "id": "myths-insights",
+        "title": "Mythes et révélations sur le début de carrière en tech",
+        "event": "CUSEC 2026",
+        "date": "2026-01-10",
+        "website": "https://2026.cusec.net",
+        "slides": "/data/slides/mythsandinsights.pdf",
+        "video": "https://www.youtube.com/watch?v=zaQiIxiJw-g&t=346s"
+      },
+      {
+        "id": "changelogger",
+        "title": "Changelogger : construire des agents IA enterprise-grade",
+        "kind": "Atelier",
+        "event": "CUCAI 2026",
+        "date": "2026-03-07",
+        "website": "https://cucai.ca",
+        "repo": "https://github.com/tjklint/cucai2026"
+      },
+      {
+        "id": "rate-limiting",
+        "title": "Rate limiting : l'art de dire non",
+        "event": "MTL_Code",
+        "date": "2026-04-16",
+        "website": "https://botpress.com/events",
+        "slides": "/data/slides/ratelimiting.pdf",
+        "video": "https://www.youtube.com/watch?v=ohf7ljqecVc"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projets",
+    "searchPlaceholder": "Rechercher des projets, technologies ou tags...",
+    "showAllLabel": "Voir tous les projets",
+    "showFeaturedLabel": "Voir les projets en vedette",
+    "allTags": "Tous les tags",
+    "noResults": "Aucun projet ne correspond à ta recherche.",
+    "seeOnGithub": "Voir sur GitHub",
+    "tryItOut": "L'essayer",
+    "usesLabel": "Utilise :",
+    "comingSoon": {
+      "title": "Plus de projets à venir...",
+      "description": "Reste à l'affût pour d'autres projets excitants!",
+      "github": "https://github.com/tjklint",
+      "website": "https://tjklint.com"
+    },
+    "altTemplate": "Projet {title}",
+    "items": [
+      {
+        "id": "pathfinder",
+        "title": "Pathfinder",
+        "description": "Une plateforme 3D propulsée par l'IA pour explorer les carrières. Elle utilise des PNJ pour partager des conseils concrets, offrant aux utilisateurs des recommandations interactives et des insights en temps réel.",
+        "image": "Pathfinder.gif",
+        "featured": true,
+        "category": "big",
+        "technologies": {
+          "languages": ["TypeScript", "SASS", "HTML"],
+          "frameworks": ["React"],
+          "libraries": ["Three.js", "React Three Fiber", "Styled Components", "React Router", "OpenAI API"]
+        },
+        "tags": ["App Web", "IA", "Visualisation 3D", "Exploration de carrière"],
+        "links": {
+          "github": "https://github.com/tjklint/Pathfinder",
+          "demo": "https://www.pathfinderhelpsyoudecidewhereyouwantto.work/"
+        }
+      },
+      {
+        "id": "capital-coach",
+        "title": "Capital Coach",
+        "description": "Un outil de gestion financière conçu pour donner aux gens les moyens de planifier intelligemment leur argent, alliant simplicité et efficacité.",
+        "image": "InvestSmart.gif",
+        "featured": false,
+        "category": "big",
+        "technologies": {
+          "languages": ["JavaScript", "HTML", "CSS"],
+          "frameworks": ["React", "Node.js", "Express"],
+          "libraries": ["Chart.js", "Axios", "Botpress"]
+        },
+        "tags": ["App Web", "Finance", "Visualisation de données"],
+        "links": {
+          "github": "https://github.com/tjklint/CapitalCoach",
+          "demo": "https://tjklint.github.io/CapitalCoach/"
+        }
+      },
+      {
+        "id": "ecovest",
+        "title": "Ecovest",
+        "description": "Un modèle d'apprentissage automatique qui aide à faire des investissements durables en tenant compte des critères ESG (environnementaux, sociaux et de gouvernance).",
+        "image": "Ecovest.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript", "Python"],
+          "frameworks": ["Svelte"],
+          "libraries": ["scikit-learn", "Chart.js", "Gumloop AI Flow"]
+        },
+        "tags": ["Svelte", "App Web", "Apprentissage automatique", "ESG", "Visualisation de données"],
+        "links": {
+          "github": "https://github.com/tjklint/Ecovest",
+          "demo": null
+        }
+      },
+      {
+        "id": "digital-adrenaline",
+        "title": "DigitalAdrenaline",
+        "description": "Un platformer 2D cyberpunk rapide où les joueurs traversent une ville contrôlée par l'IA. Inclut une mécanique unique de récupération de balles et une gestion stratégique des ressources sur 2 à 4 niveaux.",
+        "image": "DigitalAdrenaline.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["GDScript", "Python"],
+          "frameworks": ["Godot"],
+          "libraries": []
+        },
+        "tags": ["Jeux vidéo", "Platformer 2D", "Cyberpunk"],
+        "links": {
+          "github": "https://github.com/tjklint/DigitalAdrenaline",
+          "demo": null
+        }
+      },
+      {
+        "id": "pokepc",
+        "title": "PokePC",
+        "description": "PokePC est un Pokédex et une app web conviviale pour gérer et organiser des collections de Pokémon, créer des équipes de combat et suivre les détails des Pokémon, conçue pour les passionnés de tous niveaux.",
+        "image": "PokePC.gif",
+        "featured": true,
+        "category": "big",
+        "technologies": {
+          "languages": ["JavaScript", "HTML", "CSS"],
+          "frameworks": ["React", "Node.js"],
+          "libraries": ["Axios", "React Router"]
+        },
+        "tags": ["App Web", "Jeux vidéo"],
+        "links": {
+          "github": "https://github.com/tjklint/PokePC",
+          "demo": null
+        }
+      },
+      {
+        "id": "privacy-xpresso",
+        "title": "PrivacyXPresso",
+        "description": "PrivacyXPresso simplifie la suppression de données chez les grandes entreprises, améliorant la sécurité en ligne avec des outils locaux faciles à utiliser.",
+        "image": "PrivacyXPresso.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["Python", "JavaScript"],
+          "frameworks": ["Electron", "Flask"],
+          "libraries": ["Requests"]
+        },
+        "tags": ["App de bureau", "Vie privée", "Automatisation", "Sécurité"],
+        "links": {
+          "github": "https://github.com/tjklint/BellGeekfest2023",
+          "demo": "tjklint.github.io/BellGeekfest2023/"
+        }
+      },
+      {
+        "id": "portfolio",
+        "title": "Portfolio",
+        "description": "Construit en React, ce site portfolio est fait pour durer et mettre en valeur mes meilleurs projets et compétences. Merci de jeter un coup d'œil!",
+        "image": "Portfolio.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript", "SASS", "HTML"],
+          "frameworks": ["React"],
+          "libraries": ["Styled Components", "React Router"]
+        },
+        "tags": ["App Web", "Portfolio"],
+        "links": {
+          "github": "https://github.com/tjklint/tjklint.github.io",
+          "demo": "https://tjklint.github.io"
+        }
+      },
+      {
+        "id": "habit",
+        "title": "HabIT",
+        "description": "Une app Android de suivi d'habitudes construite avec Kotlin moderne et Jetpack Compose, avec des insights boostés par l'IA grâce à l'intégration du SDK Gemini.",
+        "image": "habit.gif",
+        "featured": true,
+        "category": "small",
+        "technologies": {
+          "languages": ["Kotlin"],
+          "frameworks": ["Jetpack Compose", "Android"],
+          "libraries": ["Gemini SDK"]
+        },
+        "tags": ["App mobile", "IA", "Productivité"],
+        "links": {
+          "github": "https://github.com/tjklint/habit",
+          "demo": null
+        }
+      },
+      {
+        "id": "my-secretary",
+        "title": "My Secretary",
+        "description": "Une app mobile d'assistance productivité qui aide les utilisateurs à gérer des tâches, planifier des activités et organiser leurs routines quotidiennes avec une interface propulsée par l'IA.",
+        "image": "MySecretary.gif",
+        "featured": false,
+        "category": "small",
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Expo", "Node.js"],
+          "libraries": ["Axios"]
+        },
+        "tags": ["App mobile", "Productivité", "IA"],
+        "links": {
+          "github": "https://github.com/tjklint/MySecretary",
+          "demo": null
+        }
+      }
+    ]
+  },
+  "resume": {
+    "title": "CV",
+    "iframeTitle": "CV de TJ Klint",
+    "iframeUrl": "https://drive.google.com/file/d/1lu80YAIwnfPQ4X3biBm__4uldH7Pw7cV/preview",
+    "sections": [
+      {
+        "title": "Formation",
+        "entries": [
+          {
+            "title": "Informatique",
+            "company": "@John Abbott College",
+            "dates": "Août 2022 - Mai 2025"
+          }
+        ]
+      },
+      {
+        "title": "Expérience",
+        "entries": [
+          {
+            "title": "Software Engineer",
+            "company": "@Planned",
+            "dates": "Mai 2026 - Présent",
+            "bulletPoints": []
+          },
+          {
+            "title": "Développeur full-stack",
+            "company": "@Botpress",
+            "dates": "Août 2025 - Mai 2026",
+            "bulletPoints": [
+              "J'ai mis en place un système automatique de recharge de quotas, générant 150K$ ARR dans les 100 premiers jours.",
+              "J'ai dirigé le développement rapide d'une nouvelle plateforme d'expérience client en 2 mois, en architectant l'infrastructure, les microservices et les systèmes full-stack, avec une moyenne de 14 PRs/jour dans une équipe de 12 personnes.",
+              "J'ai construit un nouveau rate limiter multi-fournisseur utilisé dans tous les systèmes, sous pression pour contrer une attaque DDoS."
+            ]
+          },
+          {
+            "title": "Stagiaire en développement logiciel",
+            "company": "@Bell",
+            "dates": "Mai 2025 - Septembre 2025",
+            "bulletPoints": [
+              "J'ai construit un système RAG (Retrieval-Augmented Generation) avec Elasticsearch, améliorant la vitesse de décision de 65%.",
+              "J'ai développé et sécurisé plus de 18 endpoints API, avec journalisation d'audit complète et blocage de tentatives malveillantes.",
+              "J'ai dirigé, conçu et mis à l'échelle l'infrastructure de base de données, augmentant les performances de requête par 4."
+            ]
+          },
+          {
+            "title": "Stagiaire en développement logiciel (DevSecOps + ML)",
+            "company": "@CSE (Centre de la sécurité des télécommunications)",
+            "dates": "Janvier 2025 - Mai 2025",
+            "bulletPoints": [
+              "J'ai construit un pipeline Jenkins pour automatiser les builds Docker et les déploiements vers Azure/Artifactory, réduisant le temps de déploiement de 80%.",
+              "J'ai intégré des tests unitaires dans le CI/CD et augmenté la couverture de tests de 40%, étant le premier à le mettre en place."
+            ]
+          },
+          {
+            "title": "Co-président",
+            "company": "@CUSEC (Conférence canadienne universitaire en génie logiciel)",
+            "dates": "Avril 2023 - Février 2025",
+            "bulletPoints": [
+              "J'ai supervisé les opérations d'une équipe de plus de 15 organisateurs étudiants, incluant la planification, les commandites et la logistique, pour assurer une conférence de haute qualité à plus de 350 participants de plus de 17 écoles dans 6+ provinces.",
+              "J'ai guidé les organisateurs, résolu des conflits logistiques et coordonné les détails avec les conférenciers, commanditaires et l'hôtel.",
+              "J'ai géré le recrutement via les médias sociaux et interviewé plus de 90 candidats."
+            ]
+          },
+          {
+            "title": "Stagiaire en développement logiciel",
+            "company": "@Bell",
+            "dates": "Mai 2024 - Septembre 2024",
+            "bulletPoints": [
+              "J'ai développé une app web pour simplifier la création interne de tickets en utilisant l'API Jira.",
+              "J'ai utilisé la stack MEVN (MongoDB, Express, Vue.js, Node.js), SpringBoot avec Java et RabbitMQ."
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "socials": {
+    "title": "RENDS-TOI SUR",
+    "description": [
+      { "type": "text", "text": "N'hésite pas à " },
+      { "type": "highlight", "text": "me contacter" },
+      { "type": "text", "text": "." }
+    ],
+    "links": [
+      { "name": "GitHub", "url": "https://github.com/tjklint", "icon": "FaGithub" },
+      { "name": "LinkedIn", "url": "https://www.linkedin.com/in/timothy-klint", "icon": "FaLinkedin" },
+      { "name": "Website", "url": "https://tjklint.com", "icon": "FaGlobe" },
+      { "name": "Medium", "url": "https://medium.com/@tjklint", "icon": "FaMedium" },
+      { "name": "Dev.to", "url": "https://dev.to/tjklint", "icon": "FaDev" }
+    ]
+  },
+  "footer": {
+    "credit": [
+      { "type": "text", "text": "Développé et conçu avec ❤️ par " },
+      { "type": "link", "text": "Moi", "href": "https://linkedin.com/in/timothy-klint", "external": true },
+      { "type": "text", "text": "." }
+    ],
+    "copyright": "© Timothy Klint 2024"
+  },
+  "chatBubble": {
+    "title": "ask xero",
+    "ariaLabel": "Ouvrir le chat",
+    "prompt": "❯",
+    "cursor": "▋",
+    "statuses": {
+      "ready": "prêt",
+      "running": "en cours",
+      "done": "terminé",
+      "connected": "connecté"
+    },
+    "commands": [
+      { "code": "whoami", "output": "→ tj klint", "duration": 600 },
+      { "code": "tj.role", "output": "→ full-stack @ botpress", "duration": 700 },
+      { "code": "tj.stack", "output": "→ ts, py, go, c#", "duration": 500 },
+      { "code": "tj.cusec", "output": "→ co-président 2025", "duration": 600 },
+      { "code": "ask('projects')", "output": "→ 9 livrés", "duration": 500 },
+      { "code": "openChat()", "output": "→ clique-moi :)", "duration": 400 }
+    ]
+  },
+  "contributionMap": {
+    "months": ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+    "weekdays": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    "totalCount": "{{count}} contributions",
+    "legend": {
+      "less": "Moins",
+      "more": "Plus"
+    },
+    "years": [2026, 2025, 2024]
+  }
+}

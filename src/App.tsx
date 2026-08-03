@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HashRouter as Router } from 'react-router-dom';
+import { LanguageProvider } from './locales';
 
 // @ts-ignore
 import Header from './components/header/header.tsx';
@@ -33,26 +34,28 @@ const AppContainer = styled.div`
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <AppContainer>
-        <Header />
-        <Hero />
+    <LanguageProvider>
+      <Router>
+        <AppContainer>
+          <Header />
+          <Hero />
 
-        <About />
+          <About />
 
-        <Speaking />
+          <Speaking />
 
-        <Resume />
+          <Resume />
 
-        <Projects />
+          <Projects />
 
-        <ContributionMap />
+          <ContributionMap />
 
-        <SocialLinks />
-        <Footer />
-        <ChatBubble />
-      </AppContainer>
-    </Router>
+          <SocialLinks />
+          <Footer />
+          <ChatBubble />
+        </AppContainer>
+      </Router>
+    </LanguageProvider>
   );
 }
 
