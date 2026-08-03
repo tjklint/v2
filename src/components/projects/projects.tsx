@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { FaGithub, FaGlobe, FaSearch } from 'react-icons/fa';
+import { useContent } from '../../locales';
+import { ProjectContent } from '../../locales/types';
 import './projects.scss';
 
-// Importing assets for project GIFs
 import investSmartGif from '../../assets/projects/InvestSmart.gif';
 import pokePCGif from '../../assets/projects/PokePC.gif';
 import privacyXPressoGif from '../../assets/projects/PrivacyXPresso.gif';
@@ -13,30 +14,6 @@ import habitGif from '../../assets/projects/habit.gif';
 import mySecretaryGif from '../../assets/projects/MySecretary.gif';
 import pathfinderGif from '../../assets/projects/Pathfinder.gif';
 
-// Import projects data
-import projectsData from '../../data/projects.json'; 
-
-// Project interface for type safety
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  featured: boolean;
-  category: 'big' | 'small';
-  technologies: {
-    languages: string[];
-    frameworks: string[];
-    libraries: string[];
-  };
-  tags: string[];
-  links: {
-    github: string;
-    demo: string | null;
-  };
-}
-
-// Asset mapping for project images
 const assetMap: { [key: string]: string } = {
   'InvestSmart.gif': investSmartGif,
   'PokePC.gif': pokePCGif,
@@ -49,31 +26,28 @@ const assetMap: { [key: string]: string } = {
   'Pathfinder.gif': pathfinderGif,
 };
 
-// Handle the "Coming Soon" click event
-const handleComingSoonClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => {
+const handleComingSoonClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>, alertText: string) => {
   event.preventDefault();
-  alert('Coming soon!');
+  alert(alertText);
 };
 
 const Projects: React.FC = () => {
+  const content = useContent();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  // Get all unique tags from projects
   const allTags = useMemo(() => {
     const tags = new Set<string>();
-    (projectsData.projects as Project[]).forEach(project => {
+    content.projects.items.forEach(project => {
       project.tags.forEach(tag => tags.add(tag));
     });
     return Array.from(tags).sort();
-  }, []);
+  }, [content.projects.items]);
 
-  // Filter and order projects based on search term, selected tag, and featured toggle
   const filteredProjects = useMemo(() => {
-    const allProjects = (projectsData.projects as Project[]);
+    const allProjects = content.projects.items;
 
-    // Base filter: search + tag always apply across all projects
     let filtered = allProjects.filter(project => {
       const query = searchTerm.toLowerCase();
       const matchesSearch =
@@ -89,25 +63,22 @@ const Projects: React.FC = () => {
       return matchesSearch && matchesTag;
     });
 
-    // When not showing all AND there is no active search or tag filter,
-    // show only featured projects
     if (!showAll && !searchTerm && !selectedTag) {
       filtered = filtered.filter(p => p.featured);
     }
 
-    // Always prioritize featured projects higher in the list
     filtered = filtered.sort((a, b) => {
       if (a.featured === b.featured) return 0;
       return a.featured ? -1 : 1;
     });
 
     return filtered;
-  }, [searchTerm, selectedTag, showAll]);
+  }, [searchTerm, selectedTag, showAll, content.projects.items]);
 
   const bigProjects = filteredProjects.filter(project => project.category === 'big');
   const smallProjects = filteredProjects.filter(project => project.category === 'small');
 
-  const renderTechnologies = (technologies: Project['technologies'], isSmall: boolean = false) => {
+  const renderTechnologies = (technologies: ProjectContent['technologies']) => {
     const allTech = [
       ...technologies.languages,
       ...technologies.frameworks,
@@ -116,7 +87,7 @@ const Projects: React.FC = () => {
 
     return (
       <div className="project-technologies">
-        <span className="tech-uses">Uses:</span>
+        <span className="tech-uses">{content.projects.usesLabel}</span>
         <div className="tech-items">
           {allTech.map((tech, index) => (
             <span key={index} className="tech-item">{tech}</span>
@@ -126,13 +97,14 @@ const Projects: React.FC = () => {
     );
   };
 
-  const renderProject = (project: Project, isSmall: boolean = false) => {
+  const renderProject = (project: ProjectContent, isSmall: boolean = false) => {
     const imageSrc = assetMap[project.image] || portfolioGif;
     const containerClass = isSmall ? 'small-project' : 'project-container';
+    const altText = content.projects.altTemplate.replace('{title}', project.title);
 
     return (
       <div key={project.id} className={containerClass}>
-        <img src={imageSrc} alt={`${project.title} Project`} />
+        <img src={imageSrc} alt={altText} />
         <div className="project-content">
           <div className="project-header">
             <h3>{project.title}</h3>
@@ -143,20 +115,20 @@ const Projects: React.FC = () => {
             </div>
           </div>
           <p className="project-description">{project.description}</p>
-          {renderTechnologies(project.technologies, isSmall)}
+          {renderTechnologies(project.technologies)}
           <div className="project-links">
             <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-              <FaGithub /> See on GitHub
+              <FaGithub /> {content.projects.seeOnGithub}
             </a>
             {project.links.demo ? (
               <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                <FaGlobe /> Try it Out
+                <FaGlobe /> {content.projects.tryItOut}
               </a>
             ) : (
-              <button onClick={handleComingSoonClick} style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: '#9b59b6', 
+              <button onClick={(e) => handleComingSoonClick(e, content.projects.comingSoonAlert)} style={{
+                background: 'none',
+                border: 'none',
+                color: '#9b59b6',
                 fontSize: '1.2em',
                 display: 'flex',
                 alignItems: 'center',
@@ -165,7 +137,7 @@ const Projects: React.FC = () => {
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.7)',
                 fontFamily: 'inherit'
               }}>
-                <FaGlobe /> Try it Out
+                <FaGlobe /> {content.projects.tryItOut}
               </button>
             )}
           </div>
@@ -176,33 +148,33 @@ const Projects: React.FC = () => {
 
   return (
     <div className="projects-container" id="projects">
-      <h2 className="section-title">Projects</h2>
-      
+      <h2 className="section-title">{content.projects.title}</h2>
+
       <div className="projects-controls">
         <div className="search-section">
           <div className="search-bar">
             <FaSearch className="search-icon" />
             <input
               type="text"
-              placeholder="Search projects, technologies, or tags..."
+              placeholder={content.projects.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button 
+          <button
             className={`show-all-button ${showAll ? 'active' : ''}`}
             onClick={() => setShowAll(!showAll)}
           >
-            {showAll ? 'Show Featured' : 'Show All Projects'}
+            {showAll ? content.projects.showFeaturedLabel : content.projects.showAllLabel}
           </button>
         </div>
-        
+
         <div className="filter-tags">
           <button
             className={`tag-filter ${!selectedTag ? 'active' : ''}`}
             onClick={() => setSelectedTag(null)}
           >
-            All Tags
+            {content.projects.allTags}
           </button>
           {allTags.map(tag => (
             <button
@@ -219,7 +191,7 @@ const Projects: React.FC = () => {
       <div className="projects-display">
         {filteredProjects.length === 0 ? (
           <div className="no-results">
-            No projects found matching your search criteria.
+            {content.projects.noResults}
           </div>
         ) : (
           <>
@@ -232,19 +204,18 @@ const Projects: React.FC = () => {
             {smallProjects.length > 0 && (
               <div className="small-projects-container">
                 {smallProjects.map(project => renderProject(project, true))}
-                
-                {/* Coming Soon project - only show if not filtering and showing all or fewer than 6 projects */}
+
                 {!searchTerm && !selectedTag && (smallProjects.length < 4 || showAll) && (
                   <div className="coming-soon-project">
                     <div className="project-content">
-                      <h3>More Projects Coming Soon...</h3>
-                      <p>Stay tuned for more exciting projects!</p>
+                      <h3>{content.projects.comingSoon.title}</h3>
+                      <p>{content.projects.comingSoon.description}</p>
                       <div className="project-links">
-                        <a href="https://github.com/tjklint" target="_blank" rel="noopener noreferrer">
-                          <FaGithub /> See on GitHub
+                        <a href={content.projects.comingSoon.github} target="_blank" rel="noopener noreferrer">
+                          <FaGithub /> {content.projects.seeOnGithub}
                         </a>
-                        <a href="https://tjklint.com" target="_blank" rel="noopener noreferrer">
-                          <FaGlobe /> Visit Website
+                        <a href={content.projects.comingSoon.website} target="_blank" rel="noopener noreferrer">
+                          <FaGlobe /> {content.projects.visitWebsite}
                         </a>
                       </div>
                     </div>
