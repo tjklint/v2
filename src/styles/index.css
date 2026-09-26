@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/inter';
+
+@import '@fontsource/press-start-2p';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
+
+  --color-ink-950: #0a0a12;
+  --color-ink-900: #12121d;
+  --color-ink-800: #1c1c2b;
+  --color-ink-700: #2a2a3d;
+  --color-ink-100: #e8e8f0;
+  --color-ink-300: #a8a8bd;
+  --color-ink-500: #6e6e88;
+
+  --color-violet-bloom: #7c5cff;
+  --color-cyan-bloom: #22d3ee;
+  --color-coral-bloom: #ff6b9d;
+  --color-amber-bloom: #ffb454;
+
+  --radius-window: 14px;
+  --radius-panel: 18px;
+
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility glass {
+  background: --alpha(var(--color-white) / 8%);
+  border: 1px solid --alpha(var(--color-white) / 12%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 1px 0 0 --alpha(var(--color-white) / 10%) inset,
+    0 8px 32px --alpha(var(--color-ink-950) / 45%);
+}
+
+@utility glass-deep {
+  background: --alpha(var(--color-white) / 6%);
+  border: 1px solid --alpha(var(--color-white) / 8%);
+  backdrop-filter: blur(40px) saturate(160%);
+  box-shadow:
+    0 1px 0 0 --alpha(var(--color-white) / 8%) inset,
+    0 24px 64px --alpha(var(--color-ink-950) / 55%);
+}
+
+@utility text-dim {
+  color: var(--color-ink-300);
+}
+
+@utility focus-ring {
+  outline: 2px solid --alpha(var(--color-violet-bloom) / 70%);
+  outline-offset: 2px;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-ink-950);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    background: --alpha(var(--color-violet-bloom) / 40%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: --alpha(var(--color-white) / 14%);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: --alpha(var(--color-white) / 26%);
+    background-clip: content-box;
+  }
+}

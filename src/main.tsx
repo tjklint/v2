@@ -1,16 +1,7 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-function App() {
-  return (
-    <main>
-      <h1>Hello World</h1>
-    </main>
-  )
-}
+import { Os } from './components/os/os'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+import './styles/index.css'
+
+createRoot(document.getElementById('root')!).render(<Os />)
