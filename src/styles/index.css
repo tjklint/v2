@@ -14,7 +14,7 @@
   --color-ink-700: #2a2a3d;
   --color-ink-100: #eeeef5;
   --color-ink-300: #bcbcd0;
-  --color-ink-500: #9c9cb6;
+  --color-ink-500: #a8a8c2;
 
   --color-violet-bloom: #7c5cff;
   --color-cyan-bloom: #22d3ee;
@@ -28,7 +28,11 @@
 }
 
 @utility glass {
-  background: --alpha(var(--color-white) / 8%);
+  background-color: --alpha(var(--color-ink-950) / 70%);
+  background-image: linear-gradient(
+    --alpha(var(--color-white) / 8%),
+    --alpha(var(--color-white) / 8%)
+  );
   border: 1px solid --alpha(var(--color-white) / 12%);
   backdrop-filter: blur(24px) saturate(180%);
   box-shadow:
@@ -37,7 +41,11 @@
 }
 
 @utility glass-bar {
-  background: --alpha(var(--color-white) / 7%);
+  background-color: --alpha(var(--color-ink-950) / 60%);
+  background-image: linear-gradient(
+    --alpha(var(--color-white) / 7%),
+    --alpha(var(--color-white) / 7%)
+  );
   border-bottom: 1px solid --alpha(var(--color-white) / 10%);
   backdrop-filter: blur(24px) saturate(180%);
   box-shadow:
@@ -46,7 +54,11 @@
 }
 
 @utility glass-deep {
-  background: --alpha(var(--color-white) / 6%);
+  background-color: --alpha(var(--color-ink-950) / 65%);
+  background-image: linear-gradient(
+    --alpha(var(--color-white) / 6%),
+    --alpha(var(--color-white) / 6%)
+  );
   border: 1px solid --alpha(var(--color-white) / 8%);
   backdrop-filter: blur(40px) saturate(160%);
   box-shadow:
