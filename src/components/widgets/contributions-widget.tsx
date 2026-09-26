@@ -47,7 +47,7 @@ export function ContributionsWidget() {
     return (
       <section
         aria-label="GitHub contributions"
-        className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
+        className="glass flex w-full flex-col rounded-panel px-4 py-3"
       >
         <h2 className="text-[11px] font-medium tracking-widest text-ink-300 uppercase">
           Contributions
@@ -60,7 +60,7 @@ export function ContributionsWidget() {
   return (
     <section
       aria-label="GitHub contributions"
-      className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
+      className="glass flex w-full flex-col rounded-panel px-4 py-3"
     >
       <header className="mb-3 flex shrink-0 items-baseline justify-between gap-4">
         <h2 className="text-[11px] font-medium tracking-widest text-ink-300 uppercase">
@@ -72,7 +72,7 @@ export function ContributionsWidget() {
         </p>
       </header>
 
-      <div className="flex min-h-0 flex-1 flex-col justify-center gap-3">
+      <div className="flex flex-col gap-3">
         {years.map((year, index) => (
           <div key={year.year} className="flex gap-1.5">
             {index === 0 ? (
