@@ -11,11 +11,11 @@ export function WidgetLayer() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute top-[68px] right-0 bottom-[88px] z-20 flex w-1/2 flex-col items-stretch justify-between gap-6 overflow-y-auto px-6">
-        <div className="pointer-events-auto shrink-0">
+      <div className="pointer-events-none absolute top-[68px] right-0 bottom-[88px] z-20 flex w-[24rem] max-w-[calc(100vw-3rem)] flex-col px-6">
+        <div className="pointer-events-auto flex min-h-0 flex-1 flex-col">
           <ContributionsWidget />
         </div>
-        <div className="pointer-events-auto shrink-0">
+        <div className="pointer-events-auto flex min-h-0 flex-1 flex-col">
           <SpeakingWidget />
         </div>
       </div>
