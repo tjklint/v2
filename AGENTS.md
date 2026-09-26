@@ -32,17 +32,25 @@ This repo is bare scaffolding on purpose: Vite, React, TypeScript, and nothing e
 
 ## Commands
 
+Bun is the package manager, the script runner, and the runtime. There is no
+Node step anywhere in the build.
+
 ```sh
-pnpm install
-pnpm run dev      # vite dev server
-pnpm run build    # tsc --noEmit && vite build -> dist/
-pnpm run preview  # serve the production build
+bun install
+bun run dev      # vite dev server
+bun run build    # tsc --noEmit && vite build -> dist/
+bun run preview  # serve the production build
 ```
 
-`pnpm run build` typechecks first, so a green build means a clean typecheck.
+`bun run build` typechecks first, so a green build means a clean typecheck.
+
+`bun run` substitutes Bun's own runtime for `#!/usr/bin/env node` scripts, so
+Vite executes on Bun, not Node. `engines.node` and `.node-version` (Node 24)
+still apply to anything that genuinely needs Node — do not treat them as the
+build runtime.
 
 That `tsc` is TypeScript 7, the native Go compiler — it is a prebuilt
-per-platform binary, not a Node program, and it takes about 80ms. Do not
+per-platform binary, not a Node or Bun program, and it takes about 80ms. Do not
 swap it back to the 5.x JS implementation; if a type error seems to be
 ignored, check that the platform binary actually resolved
-(`node -e "import('typescript/lib/getExePath.js').then(m => console.log(m.default()))"`).
+(`bun -e "import('typescript/lib/getExePath.js').then(m => console.log(m.default()))"`).
