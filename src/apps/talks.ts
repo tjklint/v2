@@ -15,6 +15,7 @@ export const TALKS: Talk[] = [
     event: 'MTL_Code',
     date: '2026-04-16',
     website: 'https://botpress.com/events',
+    video: 'https://www.youtube.com/watch?v=ohf7ljqecVc',
   },
   {
     title: 'Changelogger: Building Enterprise-Grade AI Agents',
