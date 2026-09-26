@@ -1,6 +1,8 @@
 import { Pause, Play, RotateCcw } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useWindowStore } from '../../store/windows'
+
 const COLUMNS = 22
 const ROWS = 16
 const CELL = 20
@@ -26,25 +28,33 @@ export function SnakeApp() {
   const phase = useRef<Phase>('ready')
   const points = useRef(0)
   const record = useRef(0)
+  const focused = useWindowStore((state) => state.focused)
 
   const [state, setState] = useState<Phase>('ready')
   const [score, setScore] = useState(0)
   const [best, setBest] = useState(0)
+  const [final, setFinal] = useState(0)
 
   const sync = useCallback((next: Phase) => {
     phase.current = next
     setState(next)
   }, [])
 
-  const restart = useCallback(() => {
+  const reset = useCallback(() => {
     snake.current = [{ x: 4, y: 8 }]
     heading.current = { x: 1, y: 0 }
     buffered.current = { x: 1, y: 0 }
     food.current = spawn()
     points.current = 0
     setScore(0)
+    setFinal(0)
     sync('ready')
   }, [sync])
+
+  const start = useCallback(() => {
+    reset()
+    sync('running')
+  }, [reset, sync])
 
   useEffect(() => {
     const turns: Record<string, Point> = {
@@ -66,9 +76,13 @@ export function SnakeApp() {
         const current = heading.current
         if (turn.x === -current.x && turn.y === -current.y) return
 
-        if (phase.current === 'ready' || phase.current === 'over') restart()
+        if (phase.current === 'ready' || phase.current === 'over') {
+          reset()
+          heading.current = turn
+          sync('running')
+        }
+
         buffered.current = turn
-        if (phase.current === 'ready' || phase.current === 'over') heading.current = turn
         return
       }
 
@@ -76,13 +90,15 @@ export function SnakeApp() {
         event.preventDefault()
         if (phase.current === 'running') sync('paused')
         else if (phase.current === 'paused') sync('running')
-        else restart()
+        else start()
       }
     }
 
+    if (focused !== 'game') return
+
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [restart, sync])
+  }, [focused, reset, start, sync])
 
   useEffect(() => {
     if (state !== 'running') return
@@ -100,8 +116,9 @@ export function SnakeApp() {
 
       if (escaped) {
         record.current = Math.max(record.current, points.current)
-        points.current = 0
         setBest(record.current)
+        setFinal(points.current)
+        points.current = 0
         setScore(0)
         sync('over')
         return
@@ -164,12 +181,16 @@ export function SnakeApp() {
     })
   })
 
-  const pause = () => sync(state === 'paused' ? 'running' : 'paused')
+  const pause = () => {
+    if (state === 'running') sync('paused')
+    else if (state === 'paused') sync('running')
+    else start()
+  }
 
   const overlay = {
     ready: { title: 'Snake', hint: 'Arrows or WASD to move, space to pause' },
     paused: { title: 'Paused', hint: 'Space to resume' },
-    over: { title: `Score ${score}`, hint: 'Space to play again' },
+    over: { title: `Score ${final}`, hint: 'Space to play again' },
   }[state === 'running' ? 'paused' : state]
 
   return (
@@ -197,7 +218,7 @@ export function SnakeApp() {
         <button
           type="button"
           aria-label="Restart"
-          onClick={restart}
+          onClick={start}
           className="rounded-md p-1 text-ink-300 transition-colors hover:bg-white/10 hover:text-ink-100 focus-ring"
         >
           <RotateCcw size={13} strokeWidth={2.25} />
@@ -209,7 +230,7 @@ export function SnakeApp() {
           ref={canvas}
           width={COLUMNS * CELL}
           height={ROWS * CELL}
-          className="rounded-lg bg-black/25"
+          className="max-h-full max-w-full rounded-lg bg-black/25"
         />
         {state !== 'running' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-lg bg-black/40">
@@ -218,7 +239,7 @@ export function SnakeApp() {
             {state === 'over' && (
               <button
                 type="button"
-                onClick={restart}
+                onClick={start}
                 className="mt-2 rounded-lg bg-white/10 px-3 py-1.5 text-[12px] text-ink-100 transition-colors hover:bg-white/15 focus-ring"
               >
                 Play again
