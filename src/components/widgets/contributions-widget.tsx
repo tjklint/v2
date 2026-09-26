@@ -30,10 +30,7 @@ export function ContributionsWidget() {
 
   if (!data) {
     return (
-      <section
-        aria-label="GitHub contributions"
-        className="glass w-[min(23rem,calc(100vw-3rem))] rounded-panel px-4 py-3"
-      >
+      <section aria-label="GitHub contributions" className="glass w-full rounded-panel px-4 py-3">
         <h2 className={title.section}>Contributions</h2>
         <p className="mt-2 text-[11px] text-ink-500">{failed ? 'Unavailable' : 'Loading…'}</p>
       </section>
@@ -41,10 +38,7 @@ export function ContributionsWidget() {
   }
 
   return (
-    <section
-      aria-label="GitHub contributions"
-      className="glass w-[min(23rem,calc(100vw-3rem))] rounded-panel px-4 py-3"
-    >
+    <section aria-label="GitHub contributions" className="glass w-full rounded-panel px-4 py-3">
       <header className="mb-2.5 flex items-baseline justify-between gap-4">
         <h2 className={title.section}>Contributions</h2>
         <p className="text-[11px] text-ink-500 tabular-nums">

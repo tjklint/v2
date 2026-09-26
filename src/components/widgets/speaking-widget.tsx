@@ -1,60 +1,100 @@
-import { ArrowUpRight, Video } from 'lucide-react'
+import { ArrowUpRight, Play, Video } from 'lucide-react'
 
-import { TALKS, monthYear } from '../../apps/talks'
+import { TALKS, monthYear, type Talk } from '../../apps/talks'
+
+const FEATURED = TALKS.find((talk) => talk.video) ?? TALKS[0]
+const REST = TALKS.filter((talk) => talk !== FEATURED)
+
+const embedUrl = (video: string) => {
+  const url = new URL(video)
+  const id = url.hostname.endsWith('youtu.be')
+    ? url.pathname.slice(1)
+    : (url.searchParams.get('v') ?? url.pathname.split('/').pop())
+  return `https://www.youtube-nocookie.com/embed/${id}`
+}
+
+const section = 'text-[11px] font-medium tracking-widest text-ink-300 uppercase'
+
+function Meta({ talk }: { talk: Talk }) {
+  return (
+    <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[10px] text-ink-500">
+      <span>{talk.event}</span>
+      <span aria-hidden>·</span>
+      <span className="tabular-nums">{monthYear(talk.date)}</span>
+      {talk.kind && (
+        <>
+          <span aria-hidden>·</span>
+          <span className="rounded bg-white/8 px-1.5 py-px text-ink-300">{talk.kind}</span>
+        </>
+      )}
+      {talk.video && (
+        <a
+          href={talk.video}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Watch ${talk.title} on YouTube`}
+          className="text-ink-500 transition-colors hover:text-ink-100"
+        >
+          <Video size={11} strokeWidth={2.25} />
+        </a>
+      )}
+    </p>
+  )
+}
 
 export function SpeakingWidget() {
   return (
-    <section aria-label="Speaking" className="glass w-72 rounded-panel px-4 py-3">
-      <header className="mb-2.5">
-        <h2 className="text-[11px] font-medium tracking-widest text-ink-300 uppercase">Speaking</h2>
+    <section aria-label="Speaking" className="glass w-full rounded-panel px-4 py-3">
+      <header className="mb-2.5 flex items-baseline justify-between gap-4">
+        <h2 className={section}>Speaking</h2>
+        <p className="text-[11px] text-ink-500 tabular-nums">
+          <span className="text-ink-100">{TALKS.length}</span> talks
+        </p>
       </header>
 
+      <div className="mb-3 overflow-hidden rounded-lg border border-white/10 bg-black/50">
+        {FEATURED.video ? (
+          <iframe
+            src={embedUrl(FEATURED.video)}
+            title={FEATURED.title}
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+            allowFullScreen
+            className="mx-auto block aspect-video h-[clamp(11rem,26vh,24rem)] w-auto border-0"
+          />
+        ) : (
+          <div className="flex mx-auto block aspect-video h-[clamp(11rem,26vh,24rem)] w-auto flex-col items-center justify-center gap-2 p-4 text-center">
+            <Play size={18} strokeWidth={2.25} className="text-ink-500" />
+            <p className="text-[10px] text-ink-500">No recording yet</p>
+          </div>
+        )}
+        <div className="border-t border-white/10 px-3 py-2">
+          <p className="text-[12px] leading-snug text-ink-100">{FEATURED.title}</p>
+          <Meta talk={FEATURED} />
+        </div>
+      </div>
+
       <ol className="flex flex-col gap-2.5">
-        {TALKS.map((talk) => (
-          <li key={talk.title} className="flex flex-col gap-1">
-            <div className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300/80" />
-              <div className="min-w-0">
-                <a
-                  href={talk.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-start gap-1"
-                >
-                  <span className="text-[12px] leading-snug text-ink-100 underline-offset-2 group-hover:underline">
-                    {talk.title}
-                  </span>
-                  <ArrowUpRight
-                    size={11}
-                    strokeWidth={2.5}
-                    className="mt-0.5 shrink-0 text-ink-500 transition-colors group-hover:text-ink-300"
-                  />
-                </a>
-                <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[10px] text-ink-500">
-                  <span>{talk.event}</span>
-                  <span aria-hidden>·</span>
-                  <span className="tabular-nums">{monthYear(talk.date)}</span>
-                  {talk.kind && (
-                    <>
-                      <span aria-hidden>·</span>
-                      <span className="rounded bg-white/8 px-1.5 py-px text-ink-300">
-                        {talk.kind}
-                      </span>
-                    </>
-                  )}
-                  {talk.video && (
-                    <a
-                      href={talk.video}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Watch ${talk.title}`}
-                      className="text-ink-400 transition-colors hover:text-ink-100"
-                    >
-                      <Video size={11} strokeWidth={2.25} />
-                    </a>
-                  )}
-                </p>
-              </div>
+        {REST.map((talk) => (
+          <li key={talk.title} className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300/80" />
+            <div className="min-w-0">
+              <a
+                href={talk.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-1"
+              >
+                <span className="text-[12px] leading-snug text-ink-100 underline-offset-2 group-hover:underline">
+                  {talk.title}
+                </span>
+                <ArrowUpRight
+                  size={11}
+                  strokeWidth={2.5}
+                  className="mt-0.5 shrink-0 text-ink-500 transition-colors group-hover:text-ink-300"
+                />
+              </a>
+              <Meta talk={talk} />
             </div>
           </li>
         ))}
