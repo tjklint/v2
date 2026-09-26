@@ -9,13 +9,13 @@ Live: https://tjklint.github.io/v2/
 
 Vite, React, TypeScript, Bun. Nothing else.
 
-| Package | Why |
-| --- | --- |
-| `react`, `react-dom` | The only runtime dependencies |
-| `vite` | Dev server and build |
-| `@vitejs/plugin-react` | JSX transform and Fast Refresh |
-| `typescript` (v7) | Native Go compiler; `bun run build` runs `tsc --noEmit` first |
-| `@types/react`, `@types/react-dom` | Types for the above |
+| Package                            | Why                                                           |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `react`, `react-dom`               | The only runtime dependencies                                 |
+| `vite`                             | Dev server and build                                          |
+| `@vitejs/plugin-react`             | JSX transform and Fast Refresh                                |
+| `typescript` (v7)                  | Native Go compiler; `bun run build` runs `tsc --noEmit` first |
+| `@types/react`, `@types/react-dom` | Types for the above                                           |
 
 ## Commands
 
