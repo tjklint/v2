@@ -1,6 +1,6 @@
 import { ArrowUpRight, Play, Video } from 'lucide-react'
 
-import { TALKS, monthYear, type Talk } from '../../apps/talks'
+import { MORE_TALKS, TALKS, monthYear, type Talk } from '../../apps/talks'
 
 const FEATURED = TALKS.find((talk) => talk.video) ?? TALKS[0]
 const REST = TALKS.filter((talk) => talk !== FEATURED)
@@ -101,6 +101,12 @@ export function SpeakingWidget() {
           ))}
         </ol>
       </div>
+
+      <p className="mt-3 flex items-center gap-2 border-t border-white/8 pt-2.5 text-[10px] text-ink-500">
+        <span className="h-px flex-1 bg-white/10" />
+        <span className="tabular-nums">{MORE_TALKS}+ more talks</span>
+        <span className="h-px flex-1 bg-white/10" />
+      </p>
     </section>
   )
 }
