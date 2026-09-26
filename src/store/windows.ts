@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 
-import { APPS, APP_IDS, type AppId, type Point } from '../apps/registry'
+import { APPS, APP_IDS, type AppId, type Point, type Size } from '../apps/registry'
 
 type WindowInstance = {
   open: boolean
   position: Point
+  size: Size
 }
 
 type WindowStore = {
@@ -15,6 +16,7 @@ type WindowStore = {
   toggle: (id: AppId) => void
   focus: (id: AppId) => void
   reposition: (id: AppId, position: Point) => void
+  resize: (id: AppId, size: Size) => void
 }
 
 const spawnPoints = Object.fromEntries(APPS.map((app) => [app.id, app.spawn])) as Record<
@@ -22,14 +24,20 @@ const spawnPoints = Object.fromEntries(APPS.map((app) => [app.id, app.spawn])) a
   Point
 >
 
+const sizes = Object.fromEntries(APPS.map((app) => [app.id, app.size])) as Record<AppId, Size>
+
+const startsOpen = Object.fromEntries(
+  APPS.map((app) => [app.id, app.startsOpen ?? false]),
+) as Record<AppId, boolean>
+
 const topmostOpen = (instances: Record<AppId, WindowInstance>) =>
   [...APP_IDS].reverse().find((id) => instances[id].open) ?? null
 
 export const useWindowStore = create<WindowStore>((set) => ({
   instances: Object.fromEntries(
-    APP_IDS.map((id) => [id, { open: false, position: spawnPoints[id] }]),
+    APP_IDS.map((id) => [id, { open: startsOpen[id], position: spawnPoints[id], size: sizes[id] }]),
   ) as Record<AppId, WindowInstance>,
-  focused: null,
+  focused: APP_IDS.find((id) => startsOpen[id]) ?? null,
 
   launch: (id) =>
     set((state) => ({
@@ -62,5 +70,10 @@ export const useWindowStore = create<WindowStore>((set) => ({
   reposition: (id, position) =>
     set((state) => ({
       instances: { ...state.instances, [id]: { ...state.instances[id], position } },
+    })),
+
+  resize: (id, size) =>
+    set((state) => ({
+      instances: { ...state.instances, [id]: { ...state.instances[id], size } },
     })),
 }))

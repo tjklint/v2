@@ -5,6 +5,11 @@ export type Point = {
   y: number
 }
 
+export type Size = {
+  width: number
+  height: number
+}
+
 export type AppId = 'browser' | 'terminal' | 'game'
 
 export type AppDefinition = {
@@ -13,6 +18,8 @@ export type AppDefinition = {
   icon: LucideIcon
   keywords: string
   spawn: Point
+  size: Size
+  startsOpen?: boolean
 }
 
 export const APPS: readonly AppDefinition[] = [
@@ -21,7 +28,9 @@ export const APPS: readonly AppDefinition[] = [
     title: 'Sites',
     icon: Compass,
     keywords: 'browse web sites urls homepage',
-    spawn: { x: 264, y: 20 },
+    spawn: { x: 180, y: 16 },
+    size: { width: 860, height: 560 },
+    startsOpen: true,
   },
   {
     id: 'terminal',
@@ -29,6 +38,7 @@ export const APPS: readonly AppDefinition[] = [
     icon: SquareTerminal,
     keywords: 'shell console zsh command line',
     spawn: { x: 264, y: 100 },
+    size: { width: 560, height: 380 },
   },
   {
     id: 'game',
@@ -36,6 +46,7 @@ export const APPS: readonly AppDefinition[] = [
     icon: Gamepad2,
     keywords: 'play game arcade',
     spawn: { x: 264, y: 150 },
+    size: { width: 560, height: 460 },
   },
 ]
 

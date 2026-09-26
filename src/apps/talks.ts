@@ -22,7 +22,8 @@ export const TALKS: Talk[] = [
     kind: 'Workshop',
     event: 'CUCAI 2026',
     date: '2026-03-07',
-    website: 'https://cucai.ca',
+    website:
+      'https://cucai.ca/#:~:text=Learn%20More-,CUCAI%202026%20Speakers,-Meet%20the%20experts',
     repo: 'https://github.com/tjklint/cucai2026',
   },
   {
@@ -33,6 +34,8 @@ export const TALKS: Talk[] = [
     video: 'https://www.youtube.com/watch?v=zaQiIxiJw-g&t=346s',
   },
 ]
+
+export const MORE_TALKS = 20
 
 export const monthYear = (date: string) =>
   new Date(`${date}T00:00:00`).toLocaleDateString('en-CA', { month: 'short', year: 'numeric' })
