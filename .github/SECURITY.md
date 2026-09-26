@@ -5,6 +5,7 @@
 If you discover a security vulnerability, please report it responsibly. We appreciate your help in keeping our project secure for everyone.
 
 To report a vulnerability:
+
 1. **Do not open a public issue**. Instead, contact us directly by email at `timothyjklint [AT] gmail [DOT] com`.
 2. Include as much information as possible, including:
    - A description of the vulnerability.
