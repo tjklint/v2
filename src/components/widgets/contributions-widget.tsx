@@ -6,11 +6,11 @@ import { useContributions } from './use-contributions'
 const GAP = 1
 
 const FILL: Record<Level, string> = {
-  NONE: 'bg-white/8',
-  FIRST_QUARTILE: 'bg-emerald-900',
-  SECOND_QUARTILE: 'bg-emerald-700',
-  THIRD_QUARTILE: 'bg-emerald-500',
-  FOURTH_QUARTILE: 'bg-emerald-300',
+  NONE: 'bg-[#3f4a5f]',
+  FIRST_QUARTILE: 'bg-[#15803d]',
+  SECOND_QUARTILE: 'bg-[#16a34a]',
+  THIRD_QUARTILE: 'bg-[#4ade80]',
+  FOURTH_QUARTILE: 'bg-[#bbf7d0]',
 }
 
 const LEGEND: Level[] = [
@@ -20,8 +20,6 @@ const LEGEND: Level[] = [
   'THIRD_QUARTILE',
   'FOURTH_QUARTILE',
 ]
-
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 type Year = { year: number; weeks: Week[]; count: number }
 
@@ -73,45 +71,33 @@ export function ContributionsWidget() {
       </header>
 
       <div className="flex flex-col gap-3">
-        {years.map((year, index) => (
-          <div key={year.year} className="flex gap-1.5">
-            {index === 0 ? (
-              <div className="flex w-[22px] shrink-0 flex-col justify-between py-px text-[8px] leading-none text-ink-500">
-                {[1, 3, 5].map((day) => (
-                  <span key={day}>{WEEKDAYS[day]}</span>
-                ))}
-              </div>
-            ) : (
-              <div className="w-[22px] shrink-0" />
-            )}
+        {years.map((year) => (
+          <div key={year.year}>
+            <div className="mb-1 flex items-baseline justify-between text-[9px] text-ink-500">
+              <span className="tabular-nums text-ink-300">{year.year}</span>
+              <span className="tabular-nums">{year.count.toLocaleString('en-CA')}</span>
+            </div>
 
-            <div className="min-w-0 flex-1">
-              <div className="mb-1 flex items-baseline justify-between text-[9px] text-ink-500">
-                <span className="tabular-nums text-ink-300">{year.year}</span>
-                <span className="tabular-nums">{year.count.toLocaleString('en-CA')}</span>
-              </div>
-
-              <div
-                className="flex"
-                role="img"
-                aria-label={`${year.count} contributions on GitHub in ${year.year}`}
-              >
-                {year.weeks.map((week) => (
-                  <div
-                    key={week.firstDay}
-                    className="flex flex-col"
-                    style={{ gap: GAP, width: 'calc((100% - 52px) / 53)' }}
-                  >
-                    {week.days.map((day) => (
-                      <span
-                        key={day.date}
-                        title={`${day.count} on ${day.date}`}
-                        className={`aspect-square w-full rounded-[1px] ${FILL[day.level]}`}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
+            <div
+              className="flex"
+              role="img"
+              aria-label={`${year.count} contributions on GitHub in ${year.year}`}
+            >
+              {year.weeks.map((week) => (
+                <div
+                  key={week.firstDay}
+                  className="flex flex-col"
+                  style={{ gap: GAP, width: 'calc((100% - 52px) / 53)' }}
+                >
+                  {week.days.map((day) => (
+                    <span
+                      key={day.date}
+                      title={`${day.count} on ${day.date}`}
+                      className={`aspect-square w-full rounded-[1px] ${FILL[day.level]}`}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         ))}
