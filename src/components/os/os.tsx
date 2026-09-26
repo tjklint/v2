@@ -1,11 +1,19 @@
+import type { AppId } from '../../apps/registry'
+import { AppSurface } from '../apps/app-surface'
 import { Header } from '../header/header'
+import { Taskbar } from '../taskbar/taskbar'
 import { Wallpaper } from '../wallpaper/wallpaper'
+import { WindowLayer } from '../window/window-layer'
+
+const surface = (id: AppId) => <AppSurface id={id} />
 
 export function Os() {
   return (
     <div className="relative h-full overflow-hidden">
       <Wallpaper />
       <Header />
+      <WindowLayer render={surface} />
+      <Taskbar />
     </div>
   )
 }
