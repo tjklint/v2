@@ -11,11 +11,16 @@ export type ContributionDay = {
   level: Level
 }
 
+export type Week = {
+  firstDay: string
+  days: ContributionDay[]
+}
+
 export type Contributions = {
   totalContributions: number
   from: string
   to: string
-  weeks: { firstDay: string; days: ContributionDay[] }[]
+  weeks: Week[]
 }
 
 const LEVELS: Level[] = [

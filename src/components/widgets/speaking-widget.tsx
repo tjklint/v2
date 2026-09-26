@@ -48,14 +48,11 @@ export function SpeakingWidget() {
       aria-label="Speaking"
       className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
     >
-      <header className="mb-2.5 flex shrink-0 items-baseline justify-between gap-4">
+      <header className="mb-2.5 shrink-0">
         <h2 className={section}>Speaking</h2>
-        <p className="text-[11px] text-ink-500 tabular-nums">
-          <span className="text-ink-100">{TALKS.length}</span> talks
-        </p>
       </header>
 
-      <div className="-mr-1 flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pr-1">
+      <div className="flex flex-col gap-3">
         <div className="shrink-0 overflow-hidden rounded-lg border border-white/10 bg-black/50">
           {FEATURED.video ? (
             <iframe
