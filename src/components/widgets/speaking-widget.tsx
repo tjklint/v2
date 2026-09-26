@@ -78,7 +78,7 @@ export function SpeakingWidget() {
         <ol className="flex shrink-0 flex-col gap-2.5">
           {REST.map((talk) => (
             <li key={talk.title} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300/80" />
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#4ade80]" />
               <div className="min-w-0">
                 <a
                   href={talk.website}
