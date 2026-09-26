@@ -7,22 +7,25 @@ Live: https://tjklint.github.io/v2/
 
 ## Stack
 
-Vite, React, TypeScript. Nothing else.
+Vite, React, TypeScript, Bun. Nothing else.
 
 | Package | Why |
 | --- | --- |
 | `react`, `react-dom` | The only runtime dependencies |
 | `vite` | Dev server and build |
 | `@vitejs/plugin-react` | JSX transform and Fast Refresh |
-| `typescript`, `@types/*` | Typecheck; `pnpm run build` runs `tsc --noEmit` first |
+| `typescript` (v7) | Native Go compiler; `bun run build` runs `tsc --noEmit` first |
+| `@types/react`, `@types/react-dom` | Types for the above |
 
 ## Commands
 
+Bun is the package manager, the script runner, and the runtime.
+
 ```sh
-pnpm install
-pnpm run dev      # vite dev server
-pnpm run build    # tsc --noEmit && vite build -> dist/
-pnpm run preview  # serve the production build
+bun install
+bun run dev      # vite dev server
+bun run build    # tsc --noEmit && vite build -> dist/
+bun run preview  # serve the production build
 ```
 
 ## Layout
@@ -36,7 +39,8 @@ src/main.tsx        the entire app
 ## Deploy
 
 Push to `main`. [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-builds and publishes `dist/` to GitHub Pages.
+builds and publishes `dist/` to GitHub Pages. It runs on `oven-sh/setup-bun`
+with no Node step at all.
 
 ## Notes
 
