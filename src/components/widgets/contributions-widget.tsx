@@ -30,7 +30,10 @@ export function ContributionsWidget() {
 
   if (!data) {
     return (
-      <section aria-label="GitHub contributions" className="glass w-full rounded-panel px-4 py-3">
+      <section
+        aria-label="GitHub contributions"
+        className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
+      >
         <h2 className={title.section}>Contributions</h2>
         <p className="mt-2 text-[11px] text-ink-500">{failed ? 'Unavailable' : 'Loading…'}</p>
       </section>
@@ -38,8 +41,11 @@ export function ContributionsWidget() {
   }
 
   return (
-    <section aria-label="GitHub contributions" className="glass w-full rounded-panel px-4 py-3">
-      <header className="mb-2.5 flex items-baseline justify-between gap-4">
+    <section
+      aria-label="GitHub contributions"
+      className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
+    >
+      <header className="mb-2.5 flex shrink-0 items-baseline justify-between gap-4">
         <h2 className={title.section}>Contributions</h2>
         <p className="text-[11px] text-ink-500 tabular-nums">
           <span className="text-ink-100">{data.totalContributions.toLocaleString('en-CA')}</span> in
@@ -47,33 +53,59 @@ export function ContributionsWidget() {
         </p>
       </header>
 
-      <div className="flex gap-1.5">
-        <div className="flex shrink-0 flex-col justify-between py-px text-[8px] leading-none text-ink-500">
-          {[1, 3, 5].map((day) => (
-            <span key={day}>{WEEKDAYS[day]}</span>
-          ))}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-1">
+        <div className="flex gap-1.5 pl-[22px]">
+          {data.weeks.map((week, i) => {
+            const month = new Date(`${week.firstDay}T00:00:00`).getUTCMonth()
+            const prev = i > 0 && new Date(`${data.weeks[i - 1].firstDay}T00:00:00`).getUTCMonth()
+            return (
+              <span
+                key={week.firstDay}
+                className="min-w-0 flex-1 truncate text-[8px] leading-none text-ink-500"
+              >
+                {month !== prev
+                  ? new Date(`${week.firstDay}T00:00:00`).toLocaleDateString('en-CA', {
+                      month: 'short',
+                      timeZone: 'UTC',
+                    })
+                  : ''}
+              </span>
+            )
+          })}
         </div>
 
-        <div
-          className="flex flex-1"
-          role="img"
-          aria-label={`${data.totalContributions} contributions on GitHub over the last two years`}
-        >
-          {data.weeks.map((week) => (
-            <div key={week.firstDay} className="flex min-w-0 flex-1 flex-col" style={{ gap: GAP }}>
-              {week.days.map((day) => (
-                <span
-                  key={day.date}
-                  title={`${day.count} on ${day.date}`}
-                  className={`aspect-square w-full rounded-[1px] ${FILL[day.level]}`}
-                />
-              ))}
-            </div>
-          ))}
+        <div className="flex gap-1.5">
+          <div className="flex shrink-0 flex-col justify-between py-px text-[8px] leading-none text-ink-500">
+            {[1, 3, 5].map((day) => (
+              <span key={day}>{WEEKDAYS[day]}</span>
+            ))}
+          </div>
+
+          <div
+            className="flex flex-1"
+            role="img"
+            aria-label={`${data.totalContributions} contributions on GitHub over the last two years`}
+          >
+            {data.weeks.map((week) => (
+              <div
+                key={week.firstDay}
+                className="flex min-w-0 flex-1 flex-col"
+                style={{ gap: GAP }}
+              >
+                {week.days.map((day) => (
+                  <span
+                    key={day.date}
+                    title={`${day.count} on ${day.date}`}
+                    className={`aspect-square w-full rounded-[1px] ${FILL[day.level]}`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <footer className="mt-2.5 flex items-center justify-end gap-1 text-[9px] text-ink-500">
+      <footer className="mt-2.5 flex shrink-0 items-center justify-end gap-1 text-[9px] text-ink-500">
         <span>Less</span>
         {LEGEND.map((level) => (
           <span
