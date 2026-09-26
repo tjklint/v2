@@ -1,11 +1,15 @@
-import { APPS, type AppId } from '../../apps/registry'
+import type { AppId } from '../../apps/registry'
+import { SitesApp } from './sites-app'
+import { SnakeApp } from './snake-app'
+import { TerminalApp } from './terminal-app'
+
+const SURFACES: Record<AppId, () => React.JSX.Element> = {
+  browser: SitesApp,
+  terminal: TerminalApp,
+  game: SnakeApp,
+}
 
 export function AppSurface({ id }: { id: AppId }) {
-  const app = APPS.find((entry) => entry.id === id)!
-
-  return (
-    <div className="flex h-full items-center justify-center p-8 text-[13px] text-ink-500">
-      {app.title}
-    </div>
-  )
+  const Surface = SURFACES[id]
+  return <Surface />
 }
