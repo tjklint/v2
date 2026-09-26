@@ -52,7 +52,7 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
             <X size={14} strokeWidth={2.5} />
           </button>
         </header>
-        <div className="flex-1 overflow-hidden">{children}</div>
+        <div className="h-[min(26rem,calc(100dvh-11rem))] overflow-hidden">{children}</div>
       </section>
     </Draggable>
   )
