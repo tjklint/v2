@@ -40,7 +40,23 @@ bun install
 bun run dev      # vite dev server
 bun run build    # tsc --noEmit && vite build -> dist/
 bun run preview  # serve the production build
+bun run check    # oxlint + oxfmt --check (also gates CI)
+bun run fmt      # oxfmt, writes changes
 ```
+
+Linting and formatting are **oxlint** and **oxfmt**, both from the OXC
+project — the same people who build Vite's transformer. There is no ESLint
+and no Prettier in this repo, and adding either needs a reason.
+
+`react-hooks/rules-of-hooks` and `react-hooks/exhaustive-deps` are named
+explicitly in `.oxlintrc.json` because they are **not** in oxlint's
+`correctness` category. Listing the `react` plugin alone leaves them off,
+which is easy to mistake for "my hooks are fine".
+
+`oxfmt` is configured in `.oxfmtrc.json` to keep the existing style
+(`singleQuote`, no `semi`) rather than its Prettier defaults, so adding
+it did not mean restyling the repo. CI runs `bun run check` before the
+build.
 
 `bun run build` typechecks first, so a green build means a clean typecheck.
 
