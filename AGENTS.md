@@ -40,3 +40,9 @@ pnpm run preview  # serve the production build
 ```
 
 `pnpm run build` typechecks first, so a green build means a clean typecheck.
+
+That `tsc` is TypeScript 7, the native Go compiler — it is a prebuilt
+per-platform binary, not a Node program, and it takes about 80ms. Do not
+swap it back to the 5.x JS implementation; if a type error seems to be
+ignored, check that the platform binary actually resolved
+(`node -e "import('typescript/lib/getExePath.js').then(m => console.log(m.default()))"`).
