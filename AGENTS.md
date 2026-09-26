@@ -24,6 +24,10 @@ This repo is bare scaffolding on purpose: Vite, React, TypeScript, and nothing e
 - No router, no CSS framework, no state library, no component library until something actually requires one. No `src/components/` directory until there is more than one component worth splitting out.
 - Prefer the platform: CSS over a preprocessor, `<details>` over a disclosure library, the URL over client-side state.
 
+There is no dependabot, renovate, or other updater in this repo — dependency
+bumps are deliberate. Check what is behind with `bun outdated`, and check the
+pinned action versions in `.github/workflows/deploy.yml` by eye.
+
 ## Deploy
 
 - The site is served at **https://tjklint.github.io/v2/**, not the root domain. The root domain is a separate repo (`tjklint.github.io`).
