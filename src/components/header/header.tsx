@@ -3,8 +3,8 @@ import { SystemMonitor } from './system-monitor'
 
 export function Header() {
   return (
-    <header className="glass-bar absolute inset-x-0 top-0 z-40 flex h-11 items-center justify-between px-6 select-none">
-      <h1 className="font-pixel text-sm leading-none tracking-[0.15em] text-ink-100 [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
+    <header className="glass-bar absolute inset-x-0 top-0 z-40 flex h-[52px] items-center justify-between px-6 select-none">
+      <h1 className="font-pixel text-[15px] leading-none tracking-[0.15em] text-ink-100 [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
         TJOS
       </h1>
 

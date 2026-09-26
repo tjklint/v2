@@ -22,6 +22,7 @@ export function HeaderWeather() {
       ) : (
         <span className="text-[11px] text-ink-500">--°</span>
       )}
+      <span className="text-[11px] text-ink-300">{MONTREAL.name}</span>
     </span>
   )
 }

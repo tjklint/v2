@@ -26,3 +26,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# generated at build time by scripts/fetch-contributions.ts
+/public/contributions.json

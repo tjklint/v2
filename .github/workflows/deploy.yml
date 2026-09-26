@@ -33,6 +33,11 @@ jobs:
       - name: Lint and format check
         run: bun run check
 
+      - name: Fetch contributions
+        run: bun run contributions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         run: bun run build
 
