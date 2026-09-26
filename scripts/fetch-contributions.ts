@@ -1,13 +1,13 @@
 const LOGIN = process.env.CONTRIBUTIONS_LOGIN ?? 'tjklint'
 const TOKEN = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN
 const OUTPUT = new URL('../public/contributions.json', import.meta.url)
+const YEARS = 3
 
 const QUERY = `
 query ($login: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $login) {
     contributionsCollection(from: $from, to: $to) {
       contributionCalendar {
-        totalContributions
         weeks {
           firstDay
           contributionDays { date contributionCount contributionLevel }
@@ -21,6 +21,12 @@ const window = (from: Date, to: Date) => ({
   from: `${from.toISOString().slice(0, 10)}T00:00:00Z`,
   to: `${to.toISOString().slice(0, 10)}T23:59:59Z`,
 })
+
+const shiftYears = (date: Date, years: number) => {
+  const next = new Date(date)
+  next.setFullYear(next.getFullYear() + years)
+  return next
+}
 
 const fetchYear = async (from: Date, to: Date) => {
   const response = await fetch('https://api.github.com/graphql', {
@@ -51,34 +57,53 @@ const main = async () => {
   }
 
   const to = new Date()
-  const from = new Date(to)
-  from.setFullYear(from.getFullYear() - 2)
 
-  const middle = new Date(from)
-  middle.setFullYear(middle.getFullYear() + 1)
-  middle.setDate(middle.getDate() - 1)
+  const windows = Array.from({ length: YEARS }, (_, i) => {
+    const end = shiftYears(to, -(YEARS - 1 - i))
+    const start = shiftYears(to, -(YEARS - i))
+    start.setDate(start.getDate() + 1)
+    return [start, end] as const
+  })
 
-  const [older, newer] = await Promise.all([fetchYear(from, middle), fetchYear(middle, to)])
+  const calendars = await Promise.all(windows.map(([from, end]) => fetchYear(from, end)))
 
-  const weeks = [...older.weeks, ...newer.weeks].map((week) => ({
-    firstDay: week.firstDay,
-    days: week.contributionDays.map((day) => ({
-      date: day.date,
-      count: day.contributionCount,
-      level: day.contributionLevel,
-    })),
-  }))
+  const byWeek = new Map<string, Map<string, { date: string; count: number; level: string }>>()
+
+  for (const calendar of calendars) {
+    for (const week of calendar.weeks) {
+      let days = byWeek.get(week.firstDay)
+      if (!days) byWeek.set(week.firstDay, (days = new Map()))
+      for (const day of week.contributionDays) {
+        days.set(day.date, {
+          date: day.date,
+          count: day.contributionCount,
+          level: day.contributionLevel,
+        })
+      }
+    }
+  }
+
+  const weeks = [...byWeek.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([firstDay, days]) => ({
+      firstDay,
+      days: [...days.values()].sort((a, b) => a.date.localeCompare(b.date)),
+    }))
+
+  const all = weeks.flatMap((week) => week.days)
 
   const payload = {
-    totalContributions: older.totalContributions + newer.totalContributions,
-    from: from.toISOString().slice(0, 10),
-    to: to.toISOString().slice(0, 10),
+    totalContributions: all.reduce((sum, day) => sum + day.count, 0),
+    from: all[0]?.date,
+    to: all.at(-1)?.date,
     generatedAt: new Date().toISOString(),
     weeks,
   }
 
   await Bun.write(OUTPUT, `${JSON.stringify(payload)}\n`)
-  console.log(`wrote ${weeks.length} weeks, ${payload.totalContributions} contributions`)
+  console.log(
+    `wrote ${weeks.length} weeks over ${YEARS} years, ${payload.totalContributions} contributions`,
+  )
 }
 
 try {
