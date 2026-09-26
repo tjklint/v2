@@ -44,7 +44,7 @@ export const SITES: Site[] = [
   },
   {
     title: 'CUCAI 2026',
-    url: 'https://tjklint.github.io/',
+    url: 'https://cucai.ca',
     description: 'CUCAI 2026 workshop site.',
     featured: false,
   },

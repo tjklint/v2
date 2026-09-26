@@ -7,7 +7,8 @@ export type SystemLoad = {
 
 const FRAME_MS = 1000 / 60
 const WINDOW_MS = 1000
-const IDLE_FLOOR = 3
+const CPU_IDLE = 3
+const RAM_IDLE = 2
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
@@ -24,11 +25,11 @@ const smooth = (previous: number, next: number) =>
   previous + (next - previous) * (next > previous ? 0.45 : 0.12)
 
 export function useSystemLoad(): SystemLoad {
-  const [load, setLoad] = useState<SystemLoad>({ cpu: IDLE_FLOOR, ram: 0 })
+  const [load, setLoad] = useState<SystemLoad>({ cpu: CPU_IDLE, ram: RAM_IDLE })
 
   useEffect(() => {
     let frame = 0
-    let current: SystemLoad = { cpu: IDLE_FLOOR, ram: 0 }
+    let current: SystemLoad = { cpu: CPU_IDLE, ram: RAM_IDLE }
     let previous = performance.now()
     let opened = previous
     let busy = 0
@@ -42,8 +43,10 @@ export function useSystemLoad(): SystemLoad {
         if (!document.hidden) {
           const utilization = clamp(busy / (now - opened), 0, 1)
           const next = {
-            cpu: Math.round(smooth(current.cpu, IDLE_FLOOR + utilization * (97 - IDLE_FLOOR))),
-            ram: Math.round(smooth(current.ram, heapPercent() ?? utilization * 70)),
+            cpu: Math.round(smooth(current.cpu, CPU_IDLE + utilization * (97 - CPU_IDLE))),
+            ram: Math.round(
+              smooth(current.ram, Math.max(RAM_IDLE, heapPercent() ?? utilization * 70)),
+            ),
           }
 
           current = next
