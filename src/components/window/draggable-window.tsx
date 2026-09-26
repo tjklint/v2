@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import Draggable from 'react-draggable'
 
 import type { AppDefinition } from '../../apps/registry'
@@ -15,6 +15,7 @@ type DraggableWindowProps = {
 }
 
 export function DraggableWindow({ app, focused, children }: DraggableWindowProps) {
+  const node = useRef<HTMLElement>(null)
   const position = useWindowStore((state) => state.instances[app.id].position)
   const focus = useWindowStore((state) => state.focus)
   const dismiss = useWindowStore((state) => state.dismiss)
@@ -24,6 +25,7 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
 
   return (
     <Draggable
+      nodeRef={node}
       handle={DRAG_HANDLE}
       cancel={NO_DRAG}
       bounds="parent"
@@ -33,6 +35,7 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
       defaultClassName="absolute top-0 left-0"
     >
       <section
+        ref={node}
         aria-label={app.title}
         style={{ opacity: focused ? 1 : 0.8 }}
         className="glass-deep pointer-events-auto flex w-[min(520px,calc(100vw-2rem))] flex-col overflow-hidden rounded-window transition-opacity duration-200"
