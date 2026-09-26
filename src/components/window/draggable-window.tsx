@@ -35,7 +35,7 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
       <section
         aria-label={app.title}
         style={{ opacity: focused ? 1 : 0.8 }}
-        className="glass-deep pointer-events-auto flex w-[520px] flex-col overflow-hidden rounded-window transition-opacity duration-200"
+        className="glass-deep pointer-events-auto flex w-[min(520px,calc(100vw-2rem))] flex-col overflow-hidden rounded-window transition-opacity duration-200"
       >
         <header
           style={{ cursor: focused ? 'grab' : 'default' }}
