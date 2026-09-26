@@ -44,61 +44,66 @@ function Meta({ talk }: { talk: Talk }) {
 
 export function SpeakingWidget() {
   return (
-    <section aria-label="Speaking" className="glass w-full rounded-panel px-4 py-3">
-      <header className="mb-2.5 flex items-baseline justify-between gap-4">
+    <section
+      aria-label="Speaking"
+      className="glass flex h-full w-full flex-col rounded-panel px-4 py-3"
+    >
+      <header className="mb-2.5 flex shrink-0 items-baseline justify-between gap-4">
         <h2 className={section}>Speaking</h2>
         <p className="text-[11px] text-ink-500 tabular-nums">
           <span className="text-ink-100">{TALKS.length}</span> talks
         </p>
       </header>
 
-      <div className="mb-3 overflow-hidden rounded-lg border border-white/10 bg-black/50">
-        {FEATURED.video ? (
-          <iframe
-            src={embedUrl(FEATURED.video)}
-            title={FEATURED.title}
-            loading="lazy"
-            allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
-            allowFullScreen
-            className="mx-auto block aspect-video h-[clamp(11rem,26vh,24rem)] w-auto border-0"
-          />
-        ) : (
-          <div className="flex mx-auto block aspect-video h-[clamp(11rem,26vh,24rem)] w-auto flex-col items-center justify-center gap-2 p-4 text-center">
-            <Play size={18} strokeWidth={2.25} className="text-ink-500" />
-            <p className="text-[10px] text-ink-500">No recording yet</p>
-          </div>
-        )}
-        <div className="border-t border-white/10 px-3 py-2">
-          <p className="text-[12px] leading-snug text-ink-100">{FEATURED.title}</p>
-          <Meta talk={FEATURED} />
-        </div>
-      </div>
-
-      <ol className="flex flex-col gap-2.5">
-        {REST.map((talk) => (
-          <li key={talk.title} className="flex items-start gap-2">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300/80" />
-            <div className="min-w-0">
-              <a
-                href={talk.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-start gap-1"
-              >
-                <span className="text-[12px] leading-snug text-ink-100 underline-offset-2 group-hover:underline">
-                  {talk.title}
-                </span>
-                <ArrowUpRight
-                  size={11}
-                  strokeWidth={2.5}
-                  className="mt-0.5 shrink-0 text-ink-500 transition-colors group-hover:text-ink-300"
-                />
-              </a>
-              <Meta talk={talk} />
+      <div className="-mr-1 flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pr-1">
+        <div className="shrink-0 overflow-hidden rounded-lg border border-white/10 bg-black/50">
+          {FEATURED.video ? (
+            <iframe
+              src={embedUrl(FEATURED.video)}
+              title={FEATURED.title}
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+              allowFullScreen
+              className="aspect-video w-full border-0"
+            />
+          ) : (
+            <div className="flex aspect-video w-full flex-col items-center justify-center gap-2 p-4 text-center">
+              <Play size={18} strokeWidth={2.25} className="text-ink-500" />
+              <p className="text-[10px] text-ink-500">No recording yet</p>
             </div>
-          </li>
-        ))}
-      </ol>
+          )}
+          <div className="border-t border-white/10 px-3 py-2">
+            <p className="text-[12px] leading-snug text-ink-100">{FEATURED.title}</p>
+            <Meta talk={FEATURED} />
+          </div>
+        </div>
+
+        <ol className="flex shrink-0 flex-col gap-2.5">
+          {REST.map((talk) => (
+            <li key={talk.title} className="flex items-start gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-300/80" />
+              <div className="min-w-0">
+                <a
+                  href={talk.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-1"
+                >
+                  <span className="text-[12px] leading-snug text-ink-100 underline-offset-2 group-hover:underline">
+                    {talk.title}
+                  </span>
+                  <ArrowUpRight
+                    size={11}
+                    strokeWidth={2.5}
+                    className="mt-0.5 shrink-0 text-ink-500 transition-colors group-hover:text-ink-300"
+                  />
+                </a>
+                <Meta talk={talk} />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   )
 }
