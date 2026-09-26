@@ -36,6 +36,15 @@
     0 8px 32px --alpha(var(--color-ink-950) / 45%);
 }
 
+@utility glass-bar {
+  background: --alpha(var(--color-white) / 7%);
+  border-bottom: 1px solid --alpha(var(--color-white) / 10%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 1px 0 0 --alpha(var(--color-white) / 8%) inset,
+    0 8px 24px --alpha(var(--color-ink-950) / 35%);
+}
+
 @utility glass-deep {
   background: --alpha(var(--color-white) / 6%);
   border: 1px solid --alpha(var(--color-white) / 8%);

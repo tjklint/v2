@@ -16,7 +16,7 @@ export function WindowLayer({ render }: WindowLayerProps) {
   const stacked = [...visible].sort((a, b) => (focused === a.id ? 1 : focused === b.id ? -1 : 0))
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-30">
+    <div className="pointer-events-none absolute inset-x-0 top-11 bottom-[72px] z-30">
       {stacked.map((app) => (
         <DraggableWindow key={app.id} app={app} focused={focused === app.id}>
           {render(app.id)}

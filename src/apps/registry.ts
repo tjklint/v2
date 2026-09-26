@@ -21,21 +21,21 @@ export const APPS: readonly AppDefinition[] = [
     title: 'Sites',
     icon: Compass,
     keywords: 'browse web sites urls homepage',
-    spawn: { x: 300, y: 92 },
+    spawn: { x: 300, y: 20 },
   },
   {
     id: 'terminal',
     title: 'Terminal',
     icon: SquareTerminal,
     keywords: 'shell console zsh command line',
-    spawn: { x: 372, y: 214 },
+    spawn: { x: 356, y: 100 },
   },
   {
     id: 'game',
     title: 'Snake',
     icon: Gamepad2,
     keywords: 'play game arcade',
-    spawn: { x: 300, y: 336 },
+    spawn: { x: 300, y: 150 },
   },
 ]
 
