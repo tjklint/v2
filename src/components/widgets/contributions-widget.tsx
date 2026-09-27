@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import type { Level, Week } from '../../apps/contributions'
 import { useContributions } from './use-contributions'
+import { PendingPanel, WidgetPanel } from './widget-panel'
 
 const GAP = 1
 
@@ -42,34 +43,20 @@ export function ContributionsWidget() {
   const years = useMemo(() => (data ? [...groupByYear(data.weeks)].reverse() : []), [data])
 
   if (!data) {
-    return (
-      <section
-        aria-label="GitHub contributions"
-        className="glass flex w-full flex-col rounded-panel px-4 py-3"
-      >
-        <h2 className="text-[11px] font-medium tracking-widest text-ink-300 uppercase">
-          Contributions
-        </h2>
-        <p className="mt-2 text-[11px] text-ink-500">{failed ? 'Unavailable' : 'Loading…'}</p>
-      </section>
-    )
+    return <PendingPanel label="GitHub contributions" title="Contributions" failed={failed} />
   }
 
   return (
-    <section
-      aria-label="GitHub contributions"
-      className="glass flex w-full flex-col rounded-panel px-4 py-3"
-    >
-      <header className="mb-3 flex shrink-0 items-baseline justify-between gap-4">
-        <h2 className="text-[11px] font-medium tracking-widest text-ink-300 uppercase">
-          Contributions
-        </h2>
-        <p className="text-[11px] text-ink-500 tabular-nums">
+    <WidgetPanel
+      label="GitHub contributions"
+      title="Contributions"
+      meta={
+        <>
           <span className="text-ink-100">{data.totalContributions.toLocaleString('en-CA')}</span>{' '}
           over 3 years
-        </p>
-      </header>
-
+        </>
+      }
+    >
       <div className="flex flex-col gap-3">
         {years.map((year) => (
           <div key={year.year}>
@@ -114,6 +101,6 @@ export function ContributionsWidget() {
         ))}
         <span>More</span>
       </footer>
-    </section>
+    </WidgetPanel>
   )
 }

@@ -2,22 +2,34 @@ import { useEffect, useState } from 'react'
 
 import { fetchContributions, type Contributions } from '../../apps/contributions'
 
-export function useContributions(): { data: Contributions | null; failed: boolean } {
-  const [state, setState] = useState<{ data: Contributions | null; failed: boolean }>({
-    data: null,
-    failed: false,
-  })
+type ContributionsState = { data: Contributions | null; failed: boolean }
+
+const PENDING: ContributionsState = { data: null, failed: false }
+
+let pending: Promise<ContributionsState> | null = null
+
+const load = (): Promise<ContributionsState> => {
+  pending ??= fetchContributions().then(
+    (data) => ({ data, failed: data === null }),
+    () => ({ data: null, failed: true }),
+  )
+
+  return pending
+}
+
+export function useContributions(): ContributionsState {
+  const [state, setState] = useState<ContributionsState>(PENDING)
 
   useEffect(() => {
-    const controller = new AbortController()
+    let live = true
 
-    fetchContributions(controller.signal)
-      .then((data) => setState({ data, failed: data === null }))
-      .catch(() => {
-        if (!controller.signal.aborted) setState({ data: null, failed: true })
-      })
+    load().then((next) => {
+      if (live) setState(next)
+    })
 
-    return () => controller.abort()
+    return () => {
+      live = false
+    }
   }, [])
 
   return state
