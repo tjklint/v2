@@ -1,6 +1,7 @@
-import { Check, Clock, Flower2, Palette, Sparkles, type LucideIcon } from 'lucide-react'
+import { Check, Clock, Flower2, Palette, Sparkles, Volume2, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 
+import { playClick } from '../../sound'
 import { ACCENT_PRESETS, accentHex, useSettings } from '../../store/settings'
 
 type SectionProps = {
@@ -15,6 +16,14 @@ type ToggleProps = {
   hint: string
   checked: boolean
   onChange: (next: boolean) => void
+}
+
+type SliderProps = {
+  label: string
+  hint: string
+  value: number
+  disabled?: boolean
+  onChange: (next: number) => void
 }
 
 const Section = ({ icon: Icon, title, meta, children }: SectionProps) => (
@@ -69,17 +78,54 @@ const Toggle = ({ label, hint, checked, onChange }: ToggleProps) => {
   )
 }
 
+const Slider = ({ label, hint, value, disabled = false, onChange }: SliderProps) => {
+  const accent = useSettings((state) => state.accent)
+  const tint = accentHex(accent)
+
+  return (
+    <div className="flex items-center justify-between gap-3 py-1.5">
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[12px] text-ink-100">{label}</span>
+        <span className="mt-0.5 block text-[10px] leading-snug text-ink-500">{hint}</span>
+      </span>
+      <span className="flex shrink-0 items-center gap-2">
+        <span className="font-mono text-[10px] text-ink-300 tabular-nums">
+          {Math.round(value * 100)}%
+        </span>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.05}
+          value={value}
+          disabled={disabled}
+          aria-label={label}
+          onChange={(event) => onChange(Number(event.currentTarget.value))}
+          className={`focus-ring h-1.5 w-20 cursor-pointer rounded-full bg-white/12 ${
+            disabled ? 'cursor-not-allowed opacity-50' : ''
+          }`}
+          style={{ accentColor: tint }}
+        />
+      </span>
+    </div>
+  )
+}
+
 export function SettingsApp() {
   const accent = useSettings((state) => state.accent)
   const blooms = useSettings((state) => state.blooms)
   const reduceMotion = useSettings((state) => state.reduceMotion)
   const showCelsius = useSettings((state) => state.showCelsius)
   const clock24h = useSettings((state) => state.clock24h)
+  const soundEnabled = useSettings((state) => state.soundEnabled)
+  const soundVolume = useSettings((state) => state.soundVolume)
   const setAccent = useSettings((state) => state.setAccent)
   const setBlooms = useSettings((state) => state.setBlooms)
   const setReduceMotion = useSettings((state) => state.setReduceMotion)
   const setShowCelsius = useSettings((state) => state.setShowCelsius)
   const setClock24h = useSettings((state) => state.setClock24h)
+  const setSoundEnabled = useSettings((state) => state.setSoundEnabled)
+  const setSoundVolume = useSettings((state) => state.setSoundVolume)
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -135,6 +181,25 @@ export function SettingsApp() {
             hint="Hold window and widget animation still"
             checked={reduceMotion}
             onChange={setReduceMotion}
+          />
+        </Section>
+
+        <Section icon={Volume2} title="Sound" meta={soundEnabled ? 'active' : 'muted'}>
+          <Toggle
+            label="Interface sounds"
+            hint="Clicks, key ticks and window chimes"
+            checked={soundEnabled}
+            onChange={(next) => {
+              setSoundEnabled(next)
+              if (next) playClick()
+            }}
+          />
+          <Slider
+            label="Volume"
+            hint="Master level for every sound"
+            value={soundVolume}
+            disabled={!soundEnabled}
+            onChange={setSoundVolume}
           />
         </Section>
 
