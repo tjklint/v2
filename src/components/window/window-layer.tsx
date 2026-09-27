@@ -14,11 +14,17 @@ export function WindowLayer({ render }: WindowLayerProps) {
 
   const visible = APPS.filter((app) => instances[app.id].open)
   const stacked = [...visible].sort((a, b) => (focused === a.id ? 1 : focused === b.id ? -1 : 0))
+  const rank = new Map(stacked.map((app, index) => [app.id, index]))
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-[52px] bottom-[72px] z-30">
-      {stacked.map((app) => (
-        <DraggableWindow key={app.id} app={app} focused={focused === app.id}>
+      {visible.map((app) => (
+        <DraggableWindow
+          key={app.id}
+          app={app}
+          focused={focused === app.id}
+          zIndex={rank.get(app.id) ?? 0}
+        >
           {render(app.id)}
         </DraggableWindow>
       ))}
