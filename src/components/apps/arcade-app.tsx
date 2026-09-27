@@ -521,6 +521,188 @@ const createBreakout = (): Instance => {
   }
 }
 
+type PongRole = 'solo' | 'host' | 'guest'
+
+type PongState = {
+  seq: number
+  player: number
+  cpu: number
+  bx: number
+  by: number
+  you: number
+  them: number
+  rally: number
+  phase: Phase
+}
+
+type PongMessage =
+  | { t: 'offer'; code: string }
+  | { t: 'join'; code: string }
+  | { t: 'state'; code: string; state: PongState }
+  | { t: 'input'; code: string; dir: number }
+  | { t: 'leave'; code: string }
+
+type PongView = { role: PongRole; code: string; status: string; live: boolean }
+
+const PONG_CHANNEL = 'tjos-pong-v1'
+const PONG_STALE = 2500
+const PONG_SEND_EVERY = 32
+
+const makeCode = () => Math.random().toString(36).slice(2, 6).toUpperCase()
+
+const pongNet = {
+  role: 'solo' as PongRole,
+  code: '',
+  channel: null as BroadcastChannel | null,
+  timer: 0,
+  seq: 0,
+  applied: -1,
+  inbox: null as PongState | null,
+  lastSeen: 0,
+  input: 0,
+  inputSent: 0,
+  lastSent: 0,
+  opponent: false,
+  joined: false,
+  listeners: new Set<() => void>(),
+}
+
+const pongStatus = () => {
+  if (pongNet.role === 'host') return pongNet.opponent ? 'OPPONENT READY' : 'WAITING FOR OPPONENT'
+  if (pongNet.role === 'guest') return pongNet.joined ? 'CONNECTED' : 'WAITING FOR HOST'
+  return 'SOLO'
+}
+
+const pongAnnounce = () => {
+  for (const listener of pongNet.listeners) listener()
+}
+
+const pongSend = (message: PongMessage) => {
+  pongNet.channel?.postMessage(message)
+}
+
+const pongReceive = (message: PongMessage) => {
+  if (pongNet.role === 'solo' || message.code !== pongNet.code) return
+  if (message.t === 'offer') {
+    if (pongNet.role === 'host') {
+      pongNet.opponent = true
+      pongAnnounce()
+      return
+    }
+    if (!pongNet.joined) {
+      pongNet.joined = true
+      pongAnnounce()
+    }
+    return
+  }
+  if (message.t === 'join' && pongNet.role === 'host') {
+    pongNet.opponent = true
+    pongAnnounce()
+    pongSend({ t: 'offer', code: pongNet.code })
+    return
+  }
+  if (message.t === 'state' && pongNet.role === 'guest') {
+    pongNet.inbox = message.state
+    pongNet.lastSeen = performance.now()
+    if (!pongNet.joined) {
+      pongNet.joined = true
+      pongAnnounce()
+    }
+    return
+  }
+  if (message.t === 'input' && pongNet.role === 'host') {
+    pongNet.input = message.dir
+    if (!pongNet.opponent) {
+      pongNet.opponent = true
+      pongAnnounce()
+    }
+    return
+  }
+  if (message.t === 'leave') pongLeave()
+}
+
+const pongClose = () => {
+  if (pongNet.timer) {
+    clearInterval(pongNet.timer)
+    pongNet.timer = 0
+  }
+  pongNet.channel?.close()
+  pongNet.channel = null
+  pongNet.role = 'solo'
+  pongNet.code = ''
+  pongNet.inbox = null
+  pongNet.input = 0
+  pongNet.inputSent = 0
+  pongNet.opponent = false
+  pongNet.joined = false
+  pongNet.applied = -1
+  pongAnnounce()
+}
+
+const pongOpen = (role: Exclude<PongRole, 'solo'>, code: string) => {
+  pongClose()
+  if (typeof BroadcastChannel === 'undefined') return
+  pongNet.role = role
+  pongNet.code = code
+  pongNet.lastSeen = performance.now()
+  const channel = new BroadcastChannel(PONG_CHANNEL)
+  pongNet.channel = channel
+  channel.onmessage = (event: MessageEvent<PongMessage>) => pongReceive(event.data)
+  pongNet.timer = setInterval(() => {
+    if (
+      pongNet.role === 'guest' &&
+      pongNet.joined &&
+      performance.now() - pongNet.lastSeen > PONG_STALE
+    ) {
+      pongLeave()
+    }
+  }, 500)
+  window.addEventListener('pagehide', pongLeave)
+  pongAnnounce()
+}
+
+const pongLeave = () => {
+  if (pongNet.role === 'solo') return
+  pongSend({ t: 'leave', code: pongNet.code })
+  window.removeEventListener('pagehide', pongLeave)
+  pongClose()
+}
+
+const pongCreate = () => {
+  pongOpen('host', makeCode())
+  pongAnnounce()
+}
+
+const pongJoin = (code: string) => {
+  const clean = code.trim().toUpperCase()
+  if (clean.length < 4) return false
+  pongOpen('guest', clean)
+  pongSend({ t: 'join', code: clean })
+  return true
+}
+
+const pongSetInput = (dir: number) => {
+  if (pongNet.role !== 'guest' || pongNet.inputSent === dir) return
+  pongNet.inputSent = dir
+  pongSend({ t: 'input', code: pongNet.code, dir })
+}
+
+const pongPublish = (state: Omit<PongState, 'seq'>) => {
+  if (pongNet.role !== 'host') return
+  const now = performance.now()
+  if (now - pongNet.lastSent < PONG_SEND_EVERY) return
+  pongNet.lastSent = now
+  pongNet.seq += 1
+  pongSend({ t: 'state', code: pongNet.code, state: { ...state, seq: pongNet.seq } })
+}
+
+const pongView = (): PongView => ({
+  role: pongNet.role,
+  code: pongNet.code,
+  status: pongStatus(),
+  live: pongNet.role === 'host' ? pongNet.opponent : pongNet.joined,
+})
+
 const PONG_TARGET = 11
 
 const pongField = (size: Size) => {
@@ -554,7 +736,7 @@ const createPong = (): Instance => {
     you = 0
     them = 0
     rally = 0
-    wait = 0
+    wait = 0.85
     heldUp = false
     heldDown = false
     serveDir = 1
@@ -586,6 +768,7 @@ const createPong = (): Instance => {
     phase: () => phase,
     reset,
     launch: () => {
+      if (pongNet.role === 'guest') return
       reset()
       phase = 'running'
     },
@@ -596,6 +779,19 @@ const createPong = (): Instance => {
       if (phase === 'paused') phase = 'running'
     },
     update: (dt, size) => {
+      if (pongNet.role === 'guest') {
+        const state = pongNet.inbox
+        if (!state || state.seq <= pongNet.applied) return false
+        pongNet.applied = state.seq
+        player = state.player
+        cpu = state.cpu
+        ball = { x: state.bx, y: state.by, vx: 0, vy: 0, r: 4 }
+        you = state.you
+        them = state.them
+        rally = state.rally
+        phase = state.phase
+        return true
+      }
       if (phase !== 'running') return false
       const field = pongField(size)
       const middle = field.top + field.height / 2
@@ -623,8 +819,12 @@ const createPong = (): Instance => {
         return true
       }
 
-      const target = ball.vx > 0 ? ball.y + drift : middle
-      cpu = clamp(cpu + clamp((target - cpu) * 6, -190 * dt, 190 * dt), field.top + half, ceiling)
+      if (pongNet.role === 'host') {
+        cpu = clamp(cpu + pongNet.input * 340 * dt, field.top + half, ceiling)
+      } else {
+        const target = ball.vx > 0 ? ball.y + drift : middle
+        cpu = clamp(cpu + clamp((target - cpu) * 6, -190 * dt, 190 * dt), field.top + half, ceiling)
+      }
 
       ball.x += ball.vx * dt
       ball.y += ball.vy * dt
@@ -661,6 +861,8 @@ const createPong = (): Instance => {
     draw: (ctx, size) => {
       const field = pongField(size)
       const half = field.paddleHeight / 2
+
+      pongPublish({ player, cpu, bx: ball.x, by: ball.y, you, them, rally, phase })
 
       ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'
       ctx.fillRect(field.left, field.top, field.width, field.height)
@@ -699,6 +901,17 @@ const createPong = (): Instance => {
       ctx.fill()
     },
     key: (name, down) => {
+      if (pongNet.role === 'guest') {
+        if (name === 'ArrowUp' || name === 'w' || name === 'W') {
+          pongSetInput(down ? -1 : 0)
+          return true
+        }
+        if (name === 'ArrowDown' || name === 's' || name === 'S') {
+          pongSetInput(down ? 1 : 0)
+          return true
+        }
+        return false
+      }
       if (name === 'ArrowUp' || name === 'w' || name === 'W') {
         heldUp = down
         return true
@@ -712,8 +925,8 @@ const createPong = (): Instance => {
     aim: null,
     snapshot: () => ({
       score: you,
-      stat: ['RALLY', String(rally)],
-      title: you >= PONG_TARGET ? 'YOU WIN' : 'CPU WINS',
+      stat: pongNet.role === 'solo' ? ['RALLY', String(rally)] : ['THEM', String(them)],
+      title: you >= PONG_TARGET ? 'YOU WIN' : pongNet.role === 'solo' ? 'CPU WINS' : 'THEY WIN',
     }),
   }
 }
@@ -1161,6 +1374,17 @@ export function ArcadeApp() {
   const record = useRef(0)
   const published = useRef<View | null>(null)
   const [slot, setSlot] = useState(0)
+  const [net, setNet] = useState<PongView>(pongView)
+  const [code, setCode] = useState('')
+
+  useEffect(() => {
+    const sync = () => setNet(pongView())
+    pongNet.listeners.add(sync)
+    return () => {
+      pongNet.listeners.delete(sync)
+      pongLeave()
+    }
+  }, [])
   const [view, setView] = useState<View>({
     score: 0,
     best: 0,
@@ -1246,6 +1470,7 @@ export function ArcadeApp() {
 
   useEffect(() => {
     const entry = CABINETS[slot]
+    if (entry.id !== 'pong') pongLeave()
     const game = entry.create()
     cabinet.current = entry
     running.current = game
@@ -1302,7 +1527,12 @@ export function ArcadeApp() {
       const { width, height, dpr } = metrics.current
 
       if (game && canvas && width > 0 && height > 0) {
-        if (awake.current === 'game' && game.phase() === 'running') {
+        const role = cabinet.current.id === 'pong' ? pongNet.role : 'solo'
+        const online = role !== 'solo'
+        if (
+          (awake.current === 'game' || online) &&
+          (game.phase() === 'running' || role === 'guest')
+        ) {
           if (game.update(delta, { width, height })) dirty.current = true
         }
         if (game.phase() !== beat.current) {
@@ -1354,15 +1584,19 @@ export function ArcadeApp() {
   }
 
   const entry = CABINETS[slot]
-  const dimmed = focused !== 'game'
+  const online = entry.id === 'pong' && net.role !== 'solo'
+  const dimmed = focused !== 'game' && !online
   const idle = view.phase !== 'running'
+  const waiting = entry.id === 'pong' && net.role === 'guest' && view.phase !== 'running'
   const overlay = dimmed
     ? { title: 'PAUSED', hint: 'CLICK THE WINDOW TO RESUME', action: '' }
-    : view.phase === 'ready'
-      ? { title: entry.name, hint: entry.hint, action: 'INSERT COIN' }
-      : view.phase === 'paused'
-        ? { title: 'PAUSED', hint: 'PRESS P OR SPACE TO RESUME', action: 'RESUME' }
-        : { title: view.title, hint: `SCORE ${view.score}`, action: 'PLAY AGAIN' }
+    : waiting
+      ? { title: 'ONLINE', hint: net.status, action: '' }
+      : view.phase === 'ready'
+        ? { title: entry.name, hint: entry.hint, action: 'INSERT COIN' }
+        : view.phase === 'paused'
+          ? { title: 'PAUSED', hint: 'PRESS P OR SPACE TO RESUME', action: 'RESUME' }
+          : { title: view.title, hint: `SCORE ${view.score}`, action: 'PLAY AGAIN' }
 
   const playLabel =
     view.phase === 'running' ? 'Pause game' : view.phase === 'paused' ? 'Resume game' : 'Start game'
@@ -1403,6 +1637,69 @@ export function ArcadeApp() {
           )
         })}
       </div>
+
+      {entry.id === 'pong' ? (
+        <div className="flex shrink-0 items-center gap-2 px-3 pb-2">
+          {net.role === 'solo' ? (
+            <>
+              <button
+                type="button"
+                onClick={pongCreate}
+                className="shrink-0 rounded-md border border-cyan-bloom/50 bg-cyan-bloom/15 px-2 py-1.5 font-pixel text-[8px] tracking-[0.08em] text-ink-100 transition-colors hover:bg-cyan-bloom/25 focus-ring"
+              >
+                CREATE GAME
+              </button>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  if (!pongJoin(code)) setNet(pongView())
+                }}
+                className="flex min-w-0 flex-1 items-center gap-2"
+              >
+                <label htmlFor="pong-code" className="sr-only">
+                  Join code
+                </label>
+                <input
+                  id="pong-code"
+                  value={code}
+                  maxLength={6}
+                  onChange={(event) => setCode(event.target.value.toUpperCase())}
+                  placeholder="CODE"
+                  className="min-w-0 flex-1 rounded-md border border-white/10 bg-white/4 px-2 py-1.5 font-pixel text-[8px] tracking-[0.12em] text-ink-100 placeholder:text-ink-500 focus-ring"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 rounded-md border border-white/12 bg-white/6 px-2 py-1.5 font-pixel text-[8px] tracking-[0.08em] text-ink-300 transition-colors hover:bg-white/10 hover:text-ink-100 focus-ring"
+                >
+                  JOIN
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <span
+                aria-live="polite"
+                aria-label={
+                  net.role === 'host' ? `Join code ${net.code}` : `Playing against ${net.code}`
+                }
+                className="shrink-0 rounded-md border border-white/10 bg-white/4 px-2 py-1.5 font-pixel text-[8px] tracking-[0.1em] text-ink-100"
+              >
+                {net.role === 'host' ? net.code : `VS ${net.code}`}
+              </span>
+              <span className="min-w-0 flex-1 truncate font-pixel text-[7px] tracking-[0.06em] text-ink-300">
+                {net.status}
+              </span>
+              <button
+                type="button"
+                onClick={pongLeave}
+                className="shrink-0 rounded-md border border-white/12 bg-white/6 px-2 py-1.5 font-pixel text-[8px] tracking-[0.08em] text-ink-300 transition-colors hover:bg-white/10 hover:text-ink-100 focus-ring"
+              >
+                LEAVE
+              </button>
+            </>
+          )}
+        </div>
+      ) : null}
 
       <div className="min-h-0 flex-1 px-3">
         <div
