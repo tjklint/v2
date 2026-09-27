@@ -1,3 +1,4 @@
+import { useAchievements, type AchievementId } from '../../store/achievements'
 import { APPS, type AppId } from '../registry'
 import {
   DESKTOP,
@@ -43,6 +44,25 @@ export type Command = {
 }
 
 const HISTORY_LIMIT = 300
+
+const UNLOCKS: Partial<Record<string, AchievementId>> = {
+  help: 'read-the-manual',
+  neofetch: 'showoff',
+  history: 'historian',
+  exit: 'no-exit',
+}
+
+const RECURSIVE = /^-[a-z]*[rf][a-z]*$/
+
+const award = (...ids: (AchievementId | undefined)[]) => {
+  try {
+    for (const id of ids) {
+      if (id) useAchievements.getState().unlock(id)
+    }
+  } catch {
+    return
+  }
+}
 
 const label = (name: string, node: FileNode) => (node.type === 'dir' ? `${name}/` : name)
 
@@ -461,10 +481,19 @@ const runStage = (
   context: Omit<CommandContext, 'args'>,
 ): CommandResult => {
   const command = COMMANDS.find((entry) => entry.name === name)
-  if (command) return command.run({ ...context, args, stdin })
+  if (command) {
+    award('first-command', UNLOCKS[command.name])
+    if (command.name === 'rm' && args.includes('/') && args.some((arg) => RECURSIVE.test(arg))) {
+      award('self-destruct')
+    }
+    return command.run({ ...context, args, stdin })
+  }
 
   const executed = execute(name, context.state.cwd)
-  if (executed) return executed
+  if (executed) {
+    award('first-command')
+    return executed
+  }
 
   return { lines: [`zsh: command not found: ${name}`], error: true }
 }
@@ -477,6 +506,9 @@ export const runCommand = (input: string, context: Omit<CommandContext, 'args'>)
     if (!stage) return { lines: ['zsh: parse error: expected a file after >'], error: true }
     stages.push(stage)
   }
+
+  if (stages.length > 1) award('first-pipe')
+  if (stages.some((stage) => stage.redirect)) award('first-redirect')
 
   let stdin: string | undefined
   let result: CommandResult = { lines: [] }
