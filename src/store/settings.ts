@@ -17,6 +17,8 @@ type SettingsState = {
   reduceMotion: boolean
   showCelsius: boolean
   clock24h: boolean
+  soundEnabled: boolean
+  soundVolume: number
 }
 
 type SettingsStore = SettingsState & {
@@ -25,6 +27,8 @@ type SettingsStore = SettingsState & {
   setReduceMotion: (reduceMotion: boolean) => void
   setShowCelsius: (showCelsius: boolean) => void
   setClock24h: (clock24h: boolean) => void
+  setSoundEnabled: (soundEnabled: boolean) => void
+  setSoundVolume: (soundVolume: number) => void
 }
 
 const INITIAL: SettingsState = {
@@ -33,6 +37,8 @@ const INITIAL: SettingsState = {
   reduceMotion: false,
   showCelsius: true,
   clock24h: false,
+  soundEnabled: true,
+  soundVolume: 0.25,
 }
 
 const attempt = <T>(run: () => T, fallback: T): T => {
@@ -63,6 +69,8 @@ export const useSettings = create<SettingsStore>()(
       setReduceMotion: (reduceMotion) => set({ reduceMotion }),
       setShowCelsius: (showCelsius) => set({ showCelsius }),
       setClock24h: (clock24h) => set({ clock24h }),
+      setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
+      setSoundVolume: (soundVolume) => set({ soundVolume }),
     }),
     {
       name: 'tjos:settings',
@@ -74,6 +82,8 @@ export const useSettings = create<SettingsStore>()(
         reduceMotion: state.reduceMotion,
         showCelsius: state.showCelsius,
         clock24h: state.clock24h,
+        soundEnabled: state.soundEnabled,
+        soundVolume: state.soundVolume,
       }),
     },
   ),
