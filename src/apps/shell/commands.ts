@@ -1,5 +1,15 @@
 import { APPS, type AppId } from '../registry'
-import { FILESYSTEM, HOME, listing, lookup, read, resolve, type FileNode } from './filesystem'
+import {
+  DESKTOP,
+  FILESYSTEM,
+  HOME,
+  appForExe,
+  listing,
+  lookup,
+  read,
+  resolve,
+  type FileNode,
+} from './filesystem'
 
 export type ShellState = {
   cwd: string
@@ -62,6 +72,8 @@ export const COMMANDS: Command[] = [
         ...COMMANDS.map((command) => `  ${command.usage.padEnd(22)}${command.summary}`),
         '',
         'Tab completes commands and paths. Up and down walk the history.',
+        'The .exe files on the Desktop are real files. Run one to open its window:',
+        '  ls Desktop        ./sites.exe',
       ],
     }),
   },
@@ -197,10 +209,33 @@ export const COMMANDS: Command[] = [
 
 export const COMMAND_NAMES = COMMANDS.map((command) => command.name)
 
+const PATH_DIRS = ['/bin', DESKTOP]
+
+const execute = (token: string, cwd: string): CommandResult | null => {
+  const candidates = [resolve(cwd, token), ...PATH_DIRS.map((dir) => resolve(dir, token))]
+  const path = candidates.find((entry) => entry && lookup(FILESYSTEM, entry))
+
+  if (!path) return null
+
+  const node = lookup(FILESYSTEM, path)
+  if (!node) return null
+  if (node.type === 'dir') return { lines: [`zsh: ${token}: is a directory`] }
+
+  const name = path.slice(path.lastIndexOf('/') + 1)
+  const app = appForExe(name)
+  if (!app) return { lines: [`zsh: ${token}: Permission denied`] }
+
+  return { lines: [`launching ${name}...`], launch: app.id }
+}
+
 export const runCommand = (input: string, context: Omit<CommandContext, 'args'>): CommandResult => {
   const [name, ...args] = input.trim().split(/\s+/)
   const command = COMMANDS.find((entry) => entry.name === name)
 
-  if (!command) return { lines: [`zsh: command not found: ${name}`] }
-  return command.run({ ...context, args })
+  if (command) return command.run({ ...context, args })
+
+  const executed = execute(name, context.state.cwd)
+  if (executed) return executed
+
+  return { lines: [`zsh: command not found: ${name}`] }
 }

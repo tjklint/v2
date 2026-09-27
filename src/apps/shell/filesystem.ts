@@ -1,3 +1,5 @@
+import { APPS } from '../registry'
+
 export type FileNode = {
   type: 'dir' | 'file'
   children?: Record<string, FileNode>
@@ -8,11 +10,34 @@ const file = (content: string): FileNode => ({ type: 'file', content })
 const dir = (children: Record<string, FileNode>): FileNode => ({ type: 'dir', children })
 
 export const HOME = '/Users/tj'
+export const DESKTOP = `${HOME}/Desktop`
+
+export const exeName = (title: string) => `${title.toLowerCase().split(' ')[0]}.exe`
+
+export const appForExe = (name: string) =>
+  APPS.find((app) => exeName(app.title) === name.toLowerCase()) ?? null
+
+const desktop = dir(
+  Object.fromEntries(
+    APPS.map((app) => [
+      exeName(app.title),
+      file(
+        [
+          `#!/usr/bin/env tjos`,
+          `# ${app.title} — ${app.keywords}`,
+          '',
+          'This is a real file. Run it from the terminal:',
+          `  ./${exeName(app.title)}`,
+        ].join('\n'),
+      ),
+    ]),
+  ),
+)
 
 export const FILESYSTEM: FileNode = dir({
   Users: dir({
     tj: dir({
-      Desktop: dir({}),
+      Desktop: desktop,
       Documents: dir({
         'about.md': file('Personal technical portfolio. Built with React, TypeScript and SASS.'),
         'canconf.md': file('Canadian tech conferences and hackathons worth your time.'),
