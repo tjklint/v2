@@ -3,6 +3,8 @@ import { useRef, useState, type FormEvent } from 'react'
 
 import { SITES, hostOf } from '../../apps/sites'
 
+const ZOOM = 0.7
+
 const toUrl = (input: string) => (/^https?:\/\//i.test(input) ? input : `https://${input}`)
 
 export function SitesApp() {
@@ -115,16 +117,24 @@ export function SitesApp() {
       </div>
 
       {current ? (
-        <iframe
-          key={`${current}-${reloadKey}`}
-          ref={frame}
-          src={current}
-          title={resolved ?? current}
-          onLoad={syncLocation}
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          referrerPolicy="no-referrer"
-          className="min-h-0 w-full flex-1 border-0 bg-white"
-        />
+        <div className="relative min-h-0 w-full flex-1 overflow-hidden">
+          <iframe
+            key={`${current}-${reloadKey}`}
+            ref={frame}
+            src={current}
+            title={resolved ?? current}
+            onLoad={syncLocation}
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            referrerPolicy="no-referrer"
+            style={{
+              width: `${100 / ZOOM}%`,
+              height: `${100 / ZOOM}%`,
+              transform: `scale(${ZOOM})`,
+              transformOrigin: 'top left',
+            }}
+            className="absolute top-0 left-0 border-0 bg-white"
+          />
+        </div>
       ) : (
         <div className="flex-1 overflow-y-auto p-4">
           <p className="mb-3 text-[11px] font-medium tracking-widest text-ink-500 uppercase">
