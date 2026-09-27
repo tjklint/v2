@@ -1,7 +1,9 @@
 import {
   Activity,
   Compass,
+  Folder,
   Gamepad2,
+  Info,
   Settings as SettingsIcon,
   SquareTerminal,
   type LucideIcon,
@@ -17,7 +19,7 @@ export type Size = {
   height: number
 }
 
-export type AppId = 'browser' | 'terminal' | 'game' | 'monitor' | 'settings'
+export type AppId = 'browser' | 'terminal' | 'game' | 'monitor' | 'settings' | 'files' | 'about'
 
 export type AppDefinition = {
   id: AppId
@@ -62,6 +64,22 @@ export const APPS: readonly AppDefinition[] = [
     keywords: 'cpu ram fps performance memory frames heap',
     spawn: { x: 700, y: 120 },
     size: { width: 420, height: 480 },
+  },
+  {
+    id: 'files',
+    title: 'Files',
+    icon: Folder,
+    keywords: 'finder explorer folder directory browse documents downloads',
+    spawn: { x: 700, y: 140 },
+    size: { width: 560, height: 480 },
+  },
+  {
+    id: 'about',
+    title: 'About',
+    icon: Info,
+    keywords: 'about system info credits version help',
+    spawn: { x: 700, y: 140 },
+    size: { width: 520, height: 520 },
   },
   {
     id: 'settings',
