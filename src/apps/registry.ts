@@ -28,7 +28,7 @@ export const APPS: readonly AppDefinition[] = [
     title: 'Sites',
     icon: Compass,
     keywords: 'browse web sites urls homepage',
-    spawn: { x: 180, y: 16 },
+    spawn: { x: 264, y: 140 },
     size: { width: 860, height: 560 },
     startsOpen: true,
   },
