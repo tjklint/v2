@@ -39,7 +39,7 @@ const groupByYear = (weeks: Week[]): Year[] => {
 
 export function ContributionsWidget() {
   const { data, failed } = useContributions()
-  const years = useMemo(() => (data ? groupByYear(data.weeks) : []), [data])
+  const years = useMemo(() => (data ? [...groupByYear(data.weeks)].reverse() : []), [data])
 
   if (!data) {
     return (
