@@ -133,7 +133,10 @@ export function TerminalApp() {
 
   return (
     <div
-      onMouseDown={() => input.current?.focus()}
+      onMouseDown={(event) => {
+        event.preventDefault()
+        input.current?.focus()
+      }}
       className="flex h-full cursor-text flex-col bg-black/25 font-mono text-[12px] leading-relaxed"
     >
       <div ref={viewport} className="flex-1 overflow-y-auto px-4 py-3">

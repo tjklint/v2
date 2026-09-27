@@ -76,6 +76,7 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
       <section
         ref={node}
         aria-label={app.title}
+        onPointerDown={() => focus(app.id)}
         style={{ width: size.width, height: size.height, opacity: focused ? 1 : 0.8 }}
         className="glass-deep pointer-events-auto flex flex-col overflow-hidden rounded-window transition-opacity duration-200"
       >
