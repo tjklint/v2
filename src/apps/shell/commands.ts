@@ -183,8 +183,15 @@ export const COMMANDS: Command[] = [
   {
     name: 'exit',
     usage: 'exit',
-    summary: 'Attempt to leave',
-    run: () => ({ lines: ['there is no exit. this is a browser tab.'] }),
+    summary: 'Attempt to leave (unsupported)',
+    run: () => ({
+      lines: [
+        'there is no exit.',
+        'this is a browser tab pretending to be a terminal.',
+        'the terminal is in on it.',
+        'close the tab, or commit to the bit.',
+      ],
+    }),
   },
 ]
 
