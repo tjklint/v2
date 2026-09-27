@@ -13,10 +13,11 @@ const MIN_SIZE: Size = { width: 360, height: 240 }
 type DraggableWindowProps = {
   app: AppDefinition
   focused: boolean
+  zIndex: number
   children: ReactNode
 }
 
-export function DraggableWindow({ app, focused, children }: DraggableWindowProps) {
+export function DraggableWindow({ app, focused, zIndex, children }: DraggableWindowProps) {
   const node = useRef<HTMLElement>(null)
   const position = useWindowStore((state) => state.instances[app.id].position)
   const size = useWindowStore((state) => state.instances[app.id].size)
@@ -77,7 +78,12 @@ export function DraggableWindow({ app, focused, children }: DraggableWindowProps
         ref={node}
         aria-label={app.title}
         onPointerDown={() => focus(app.id)}
-        style={{ width: size.width, height: size.height, opacity: focused ? 1 : 0.8 }}
+        style={{
+          width: size.width,
+          height: size.height,
+          opacity: focused ? 1 : 0.8,
+          zIndex,
+        }}
         className="glass-deep pointer-events-auto flex flex-col overflow-hidden rounded-window transition-opacity duration-200"
       >
         <header

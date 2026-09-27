@@ -70,7 +70,7 @@ export const APPS: readonly AppDefinition[] = [
     title: 'Files',
     icon: Folder,
     keywords: 'finder explorer folder directory browse documents downloads',
-    spawn: { x: 700, y: 140 },
+    spawn: { x: 640, y: 96 },
     size: { width: 560, height: 480 },
   },
   {
@@ -78,7 +78,7 @@ export const APPS: readonly AppDefinition[] = [
     title: 'About',
     icon: Info,
     keywords: 'about system info credits version help',
-    spawn: { x: 700, y: 140 },
+    spawn: { x: 700, y: 176 },
     size: { width: 520, height: 520 },
   },
   {
