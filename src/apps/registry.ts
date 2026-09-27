@@ -1,4 +1,11 @@
-import { Compass, Gamepad2, SquareTerminal, type LucideIcon } from 'lucide-react'
+import {
+  Activity,
+  Compass,
+  Gamepad2,
+  Settings as SettingsIcon,
+  SquareTerminal,
+  type LucideIcon,
+} from 'lucide-react'
 
 export type Point = {
   x: number
@@ -10,7 +17,7 @@ export type Size = {
   height: number
 }
 
-export type AppId = 'browser' | 'terminal' | 'game'
+export type AppId = 'browser' | 'terminal' | 'game' | 'monitor' | 'settings'
 
 export type AppDefinition = {
   id: AppId
@@ -42,11 +49,27 @@ export const APPS: readonly AppDefinition[] = [
   },
   {
     id: 'game',
-    title: 'Snake',
+    title: 'Arcade',
     icon: Gamepad2,
-    keywords: 'play game arcade',
-    spawn: { x: 264, y: 150 },
-    size: { width: 560, height: 460 },
+    keywords: 'play game arcade snake breakout pong tetris cabinet',
+    spawn: { x: 264, y: 100 },
+    size: { width: 420, height: 620 },
+  },
+  {
+    id: 'monitor',
+    title: 'System',
+    icon: Activity,
+    keywords: 'cpu ram fps performance memory frames heap',
+    spawn: { x: 700, y: 120 },
+    size: { width: 420, height: 480 },
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    icon: SettingsIcon,
+    keywords: 'preferences appearance accent theme motion wallpaper',
+    spawn: { x: 700, y: 120 },
+    size: { width: 460, height: 540 },
   },
 ]
 
