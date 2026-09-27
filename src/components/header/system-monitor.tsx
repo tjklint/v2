@@ -34,7 +34,7 @@ export function SystemMonitor() {
 
   return (
     <div className="flex items-center gap-3">
-      <Gauge label="CPU" value={cpu} tone="bg-sky-300" />
+      <Gauge label="CPU" value={cpu} tone="bg-accent" />
       <Gauge label="RAM" value={ram} tone="bg-violet-300" />
     </div>
   )
