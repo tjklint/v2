@@ -147,7 +147,7 @@ export function TerminalApp() {
         ))}
         <div className="mt-1 flex items-baseline gap-1.5">
           <span className="shrink-0 text-ink-500">tj@tjos</span>
-          <span className="shrink-0 text-sky-300">{displayPath(state.cwd)}</span>
+          <span className="shrink-0 text-accent">{displayPath(state.cwd)}</span>
           <span className="shrink-0 text-ink-500">%</span>
           <input
             ref={input}
@@ -178,7 +178,7 @@ export function TerminalApp() {
 
               keys[event.key]?.()
             }}
-            className="min-w-0 flex-1 bg-transparent text-ink-100 caret-sky-300 focus:outline-none"
+            className="min-w-0 flex-1 bg-transparent text-ink-100 caret-accent focus:outline-none"
           />
         </div>
       </div>

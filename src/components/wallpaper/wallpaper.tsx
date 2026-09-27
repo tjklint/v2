@@ -11,6 +11,7 @@ export function Wallpaper() {
       {BLOOMS.map((bloom) => (
         <div
           key={bloom.color}
+          data-bloom=""
           className="absolute rounded-full opacity-60 blur-[120px] will-change-transform"
           style={{
             background: bloom.color,
